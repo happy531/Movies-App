@@ -5,6 +5,11 @@ import Header from "./components/Header/Header";
 import Navigation from "./components/Navigation";
 import { Container } from "@mui/material";
 
+import Trending from './pages/Trending'
+import Movies from './pages/Movies'
+import Series from './pages/Series'
+import Favourites from './pages/Favourites'
+
 import classes from "./App.module.scss";
 
 function App() {
@@ -15,12 +20,12 @@ function App() {
         <Container>
           <Switch>
             <Route path="/" exact>
-              <Redirect to="/trending" />
+              <Redirect to="/trending"/>
             </Route>
-            <Route path="/trending" />
-            <Route path="/movies" />
-            <Route path="/series" />
-            <Route path="/favourites" />
+            <Route path="/trending" component={Trending}/>
+            <Route path="/movies" component={Movies}/>
+            <Route path="/series" component={Series}/>
+            <Route path="/favourites" component={Favourites}/>
             <Route path="*">
               <Redirect to="/trending" />
             </Route>

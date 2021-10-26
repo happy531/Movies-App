@@ -6,6 +6,7 @@ import TrendingIcon from "@mui/icons-material/Whatshot";
 import MovieIcon from "@mui/icons-material/Movie";
 import TVSeriesIcon from "@mui/icons-material/Tv";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { NavLink } from "react-router-dom";
 
 export default function Navigation() {
   const [value, setValue] = React.useState(0);
@@ -27,24 +28,36 @@ export default function Navigation() {
         }}
       >
         <BottomNavigationAction
+          style={{ color: "whitesmoke" }}
+          component={NavLink}
+          activeStyle={{ color: "#E2B616" }}
+          to="/trending"
           label="Trending"
           icon={<TrendingIcon />}
-          style={{ color: "whitesmoke" }}
         />
         <BottomNavigationAction
+          style={{ color: "whitesmoke" }}
+          component={NavLink}
+          activeStyle={{ color: "#E2B616" }}
+          to="/movies"
           label="Movies"
           icon={<MovieIcon />}
-          style={{ color: "whitesmoke" }}
         />
         <BottomNavigationAction
+          style={{ color: "whitesmoke" }}
+          component={NavLink}
+          activeStyle={{ color: "#E2B616" }}
+          to="/series"
           label="TV Series"
           icon={<TVSeriesIcon />}
-          style={{ color: "whitesmoke" }}
         />
         <BottomNavigationAction
+          style={{ color: "whitesmoke" }}
+          component={NavLink}
+          to="/favourites"
+          activeStyle={{ color: "#E2B616" }}
           label="Favourites"
           icon={<FavoriteIcon />}
-          style={{ color: "whitesmoke" }}
         />
       </BottomNavigation>
     </Box>
