@@ -12,6 +12,8 @@
 /build
 
 # misc
+/src/config/env.ts
+
 .DS_Store
 .env.local
 .env.development.local

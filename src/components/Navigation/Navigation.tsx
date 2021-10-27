@@ -9,7 +9,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { NavLink } from "react-router-dom";
 
 export default function Navigation() {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState<number>(0);
 
   return (
     <Box
@@ -23,7 +23,7 @@ export default function Navigation() {
         style={{ backgroundColor: "rgb(12, 12, 12)" }}
         showLabels
         value={value}
-        onChange={(event, newValue) => {
+        onChange={(event, newValue: number) => {
           setValue(newValue);
         }}
       >

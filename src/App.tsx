@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 
 import Header from "./components/Header/Header";
-import Navigation from "./components/Navigation";
+import Navigation from "./components/Navigation/Navigation";
 import { Container } from "@mui/material";
 
 import Trending from './pages/Trending'
@@ -16,7 +16,7 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
-      <main className={classes.app}>
+      <main className={classes.main}>
         <Container>
           <Switch>
             <Route path="/" exact>
