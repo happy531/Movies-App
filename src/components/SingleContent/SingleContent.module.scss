@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 200px;
+  padding: 4px;
+  margin: 15px 15px;
+  border-radius: 10px;
+  background-color: whitesmoke;
+  font-family: "Montserrat", sans-serif;
+  cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  .poster {
+    border-radius: 10px;
+  }
+
+  .title {
+    margin: 10px 0 5px 0;
+    font-weight: bold;
+    color: black;
+    text-align: left;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: gray;
+    margin: 0;
+
+    .release {
+    }
+    .type {
+    }
+  }
+}

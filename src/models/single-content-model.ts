@@ -3,7 +3,8 @@ export interface SingleContentModel {
     id: number;
     title: string;
     release_date: string;
-    poster_image: string;
-    backdrop_image: string;
+    poster_path: string;
+    backdrop_path: string;
     vote: number;
+    media_type: string
 }
