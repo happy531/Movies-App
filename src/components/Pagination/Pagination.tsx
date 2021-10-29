@@ -14,9 +14,10 @@ const useStyles: any = makeStyles(() => ({
 
 interface Props {
   onSetPage: (page: number) => void;
+  numOfPages: number;
 }
 
-const Pagination: React.FC<Props> = ({ onSetPage }) => {
+const Pagination: React.FC<Props> = ({ onSetPage, numOfPages }) => {
 
   const styles = useStyles();
 
@@ -37,7 +38,7 @@ const Pagination: React.FC<Props> = ({ onSetPage }) => {
     >
       <MaterialPagination
         classes={{ ul: styles.ul }}
-        count={10}
+        count={numOfPages}
         color="primary"
         variant="outlined"
         shape="rounded"

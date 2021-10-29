@@ -6,7 +6,7 @@ import Navigation from "./components/Navigation/Navigation";
 import { Container } from "@mui/material";
 
 import Trending from './pages/Trending/Trending'
-import Movies from './pages/Movies'
+import Movies from './pages/Movies/Movies'
 import Series from './pages/Series'
 import Favourites from './pages/Favourites'
 
