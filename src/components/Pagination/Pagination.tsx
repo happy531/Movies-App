@@ -18,7 +18,6 @@ interface Props {
 }
 
 const Pagination: React.FC<Props> = ({ onSetPage, numOfPages }) => {
-
   const styles = useStyles();
 
   const handlePageChange = (page: string) => {
@@ -42,6 +41,8 @@ const Pagination: React.FC<Props> = ({ onSetPage, numOfPages }) => {
         color="primary"
         variant="outlined"
         shape="rounded"
+        hideNextButton
+        hidePrevButton
         onClick={(e: any) => {
           handlePageChange(e.target.textContent);
         }}

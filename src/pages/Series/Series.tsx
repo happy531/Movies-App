@@ -11,7 +11,7 @@ import useGenre from "../../hooks/useGenre";
 import { REACT_APP_API_KEY } from "../../config/env";
 import classes from "../Page.module.scss";
 
-const Movies: React.FC = () => {
+const Series: React.FC = () => {
   const [page, setPage] = useState<number>(1);
   const [numOfPages, setNumOfPages] = useState<number>(1);
   const [content, setContent] = useState<Array<any>>([]);
@@ -21,15 +21,15 @@ const Movies: React.FC = () => {
   const selectedGenresIDs = useGenre(selectedGenres);
 
   useEffect(() => {
-    const fetchMovies = async () => {
+    const fetchSeries = async () => {
       const { data } = await axios.get(
-        `https://api.themoviedb.org/3/movie/top_rated?api_key=${REACT_APP_API_KEY}&language=en-US&page=${page}&with_genres=${selectedGenresIDs}`
+        `https://api.themoviedb.org/3/tv/top_rated?api_key=${REACT_APP_API_KEY}&language=en-US&page=${page}&with_genres=${selectedGenresIDs}`
       );
       setContent(data.results);
       setNumOfPages(data.total_pages);
     };
 
-    fetchMovies();
+    fetchSeries();
   }, [page, selectedGenresIDs]);
 
   return (
@@ -39,7 +39,7 @@ const Movies: React.FC = () => {
         setGenres={setGenres}
         selectedGenres={selectedGenres}
         setSelectedGenres={setSelectedGenres}
-        type="movie"
+        type="tv"
         setPage={setPage}
       />
       <ul className={classes["list-container"]}>
@@ -55,7 +55,7 @@ const Movies: React.FC = () => {
               poster_path={singleContent.poster_path}
               backdrop_path={singleContent.backdrop_path}
               vote={singleContent.vote_average}
-              media_type="movie"
+              media_type="tv"
             />
           ))
         ) : (
@@ -74,4 +74,4 @@ const Movies: React.FC = () => {
   );
 };
 
-export default Movies;
+export default Series;

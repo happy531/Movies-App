@@ -1,4 +1,4 @@
-export interface SingleContentModel {
+export default interface SingleContentModel {
     key: number;
     id: number;
     title: string;

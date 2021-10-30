@@ -6,7 +6,7 @@ import Pagination from "../../components/Pagination/Pagination";
 
 import { REACT_APP_API_KEY } from "../../config/env";
 
-import classes from "./Trending.module.scss";
+import classes from "../Page.module.scss";
 
 const Trending: React.FC = () => {
   const [page, setPage] = useState<number>(1);
@@ -44,7 +44,14 @@ const Trending: React.FC = () => {
             />
           ))
         ) : (
-          <span>Sorry, something went wrong while fetching data ;(</span>
+          <p className={classes["error-message"]}>
+            Sorry, something went wrong while fetching data ;(
+          </p>
+        )}
+        {content.length === 0 && (
+          <p className={classes["error-message"]}>
+            No videos with such criteria ;(
+          </p>
         )}
         <Pagination onSetPage={setPage} numOfPages={numOfPages} />
       </ul>

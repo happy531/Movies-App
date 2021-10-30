@@ -7,8 +7,8 @@ import { Container } from "@mui/material";
 
 import Trending from './pages/Trending/Trending'
 import Movies from './pages/Movies/Movies'
-import Series from './pages/Series'
-import Favourites from './pages/Favourites'
+import Series from './pages/Series/Series'
+import Favourites from './pages/Favourites/Favourites'
 
 import classes from "./App.module.scss";
 

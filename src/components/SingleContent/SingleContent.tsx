@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { img_300, unavailable } from "../../config/pictures_config";
 
-import { SingleContentModel } from "../../models/single-content-model";
+import SingleContentModel from "../../models/single-content-model";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
