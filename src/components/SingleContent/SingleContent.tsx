@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { img_300, unavailable } from "../../config/pictures_config";
 
+import VoteScore from "../UI/VoteScore";
+
 import SingleContentModel from "../../models/single-content-model";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -25,6 +27,7 @@ const SingleContent: React.FC<SingleContentModel> = (props) => {
         src={`${img_300}/${props.poster_path}` || unavailable}
         alt={props.title}
       />
+      <VoteScore vote={props.vote} />
       <span className={classes.title}>{props.title}</span>
       <div className={classes.info}>
         <span className={classes.release}>{props.release_date}</span>
