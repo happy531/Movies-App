@@ -11,6 +11,9 @@ import useGenre from "../../hooks/useGenre";
 import { REACT_APP_API_KEY } from "../../config/env";
 import classes from "../Page.module.scss";
 
+// import { useSelector, useDispatch } from "react-redux";
+// import { fetchMovies } from "../../redux-store/movies-slice";
+
 const Movies: React.FC = () => {
   const [page, setPage] = useState<number>(1);
   const [numOfPages, setNumOfPages] = useState<number>(1);
@@ -19,6 +22,11 @@ const Movies: React.FC = () => {
   const [selectedGenres, setSelectedGenres] = useState<Array<GenreModel>>([]);
 
   const selectedGenresIDs = useGenre(selectedGenres);
+
+  // const cont = useSelector((s: any) => s.movies.content);
+  // console.log(cont);
+  // const dispatch = useDispatch();
+  // dispatch(fetchMovies());
 
   useEffect(() => {
     const fetchMovies = async () => {

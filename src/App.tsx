@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Header from "./components/Header/Header";
 import Navigation from "./components/Navigation/Navigation";
@@ -18,18 +18,13 @@ function App() {
       <Header />
       <main className={classes.main}>
         <Container>
-          <Switch>
-            <Route path="/" exact>
-              <Redirect to="/trending" />
-            </Route>
-            <Route path="/trending" component={Trending} />
-            <Route path="/movies" component={Movies} />
-            <Route path="/series" component={Series} />
-            <Route path="/favourites" component={Favourites} />
-            <Route path="*">
-              <Redirect to="/trending" />
-            </Route>
-          </Switch>
+          <Routes>
+            <Route path="/trending" element={<Trending />} />
+            <Route path="/movies" element={<Movies />} />
+            <Route path="/series" element={<Series />} />
+            <Route path="/favourites" element={<Favourites />} />
+            <Route path="*" element={<Navigate to="/trending" />} />
+          </Routes>
         </Container>
       </main>
       <Navigation />

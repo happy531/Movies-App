@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { img_300, unavailable } from "../../config/pictures_config";
 
-import VoteScore from "../UI/VoteScore";
-
 import SingleContentModel from "../../models/single-content-model";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 import classes from "./SingleContent.module.scss";
+import VoteScore from "../UI/VoteScore";
 
 const SingleContent: React.FC<SingleContentModel> = (props) => {
   const [favourite, setFavourite] = useState<boolean>(false);
