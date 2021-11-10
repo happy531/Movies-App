@@ -8,7 +8,7 @@ import TVSeriesIcon from "@mui/icons-material/Tv";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { NavLink } from "react-router-dom";
 
-import classes from "./Navigation.module.scss";
+// import classes from "./Navigation.module.scss";
 
 export default function Navigation() {
   const [value, setValue] = React.useState<number>(0);

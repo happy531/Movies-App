@@ -11,6 +11,7 @@ import Series from "./pages/Series/Series";
 import Favourites from "./pages/Favourites/Favourites";
 
 import classes from "./App.module.scss";
+import ContentDetail from "./pages/ContentDetail/ContentDetail";
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
             <Route path="/movies" element={<Movies />} />
             <Route path="/series" element={<Series />} />
             <Route path="/favourites" element={<Favourites />} />
+            <Route path="/movie/:id" element={<ContentDetail />} />
+            <Route path="/tv/:id" element={<ContentDetail />} />
             <Route path="*" element={<Navigate to="/trending" />} />
           </Routes>
         </Container>
