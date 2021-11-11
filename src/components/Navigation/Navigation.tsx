@@ -20,6 +20,7 @@ export default function Navigation() {
         position: "fixed",
         bottom: 0,
         left: 0,
+        zIndex: 11,
       }}
     >
       <BottomNavigation

@@ -2,6 +2,9 @@
 export const img_300 = "https://image.tmdb.org/t/p/w300";
 export const img_500 = "https://image.tmdb.org/t/p/w500";
 
+//orginal image / backdrop
+export const img_original = "https://image.tmdb.org/t/p/original/"
+
 // unavailable image
 export const unavailable =
   "https://www.movienewz.com/img/films/poster-holder.jpg";

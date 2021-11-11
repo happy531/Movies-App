@@ -7,11 +7,10 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 
 import classes from "./SingleContent.module.scss";
 import VoteScore from "../UI/VoteScore";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const SingleContent: React.FC<SingleContentModel> = (props) => {
   const [favourite, setFavourite] = useState<boolean>(false);
-  const location = useLocation();
   return (
     <>
       <Link

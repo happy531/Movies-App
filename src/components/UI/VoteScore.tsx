@@ -11,7 +11,7 @@ const VoteScore: React.FC<{ vote: number }> = ({ vote }) => {
 
   return (
     <div
-      className={classes.vote}
+      className={`${classes.vote}`}
       style={{ borderColor: handleColorPick(vote) }}
     >
       {vote}
