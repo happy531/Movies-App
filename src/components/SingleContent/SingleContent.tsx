@@ -1,23 +1,24 @@
 import React, { useState } from "react";
 import { img_300, unavailable } from "../../config/pictures_config";
 
-import SingleContentModel from "../../models/single-content-model";
+import { Link } from "react-router-dom";
 
+import VoteScore from "../UI/VoteScore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
+import SingleContentModel from "../../models/single-content-model";
+
 import classes from "./SingleContent.module.scss";
-import VoteScore from "../UI/VoteScore";
-import { Link } from "react-router-dom";
 
 const SingleContent: React.FC<SingleContentModel> = (props) => {
   const [favourite, setFavourite] = useState<boolean>(false);
   return (
     <>
-      <Link
-        to={`/${props.media_type}/${props.id}`}
-        style={{ textDecoration: "none" }}
-      >
-        <li className={classes.container}>
+      <li>
+        <Link
+          to={`/${props.media_type}/${props.id}`}
+          className={classes.container}
+        >
           <span
             className={`${classes.favourite} ${favourite && classes.active}`}
             onClick={() => setFavourite(!favourite)}
@@ -37,8 +38,8 @@ const SingleContent: React.FC<SingleContentModel> = (props) => {
             <span className={classes.release}>{props.release_date}</span>
             <span className={classes.type}>{props.media_type}</span>
           </div>
-        </li>
-      </Link>
+        </Link>
+      </li>
     </>
   );
 };

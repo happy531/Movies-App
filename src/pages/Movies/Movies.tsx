@@ -5,28 +5,23 @@ import SingleContent from "../../components/SingleContent/SingleContent";
 import Pagination from "../../components/Pagination/Pagination";
 import Genres from "../../components/Genres/Genres";
 
-import GenreModel from "../../models/genre-model";
+import { useParams } from "react-router";
 import useGenre from "../../hooks/useGenre";
 
+import Genre from "../../models/genre-model";
 import { REACT_APP_API_KEY } from "../../config/env";
+
 import classes from "../Page.module.scss";
 
-// import { useSelector, useDispatch } from "react-redux";
-// import { fetchMovies } from "../../redux-store/movies-slice";
-
 const Movies: React.FC = () => {
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(Number(useParams().page));
   const [numOfPages, setNumOfPages] = useState<number>(1);
   const [content, setContent] = useState<Array<any>>([]);
-  const [genres, setGenres] = useState<Array<GenreModel>>([]);
-  const [selectedGenres, setSelectedGenres] = useState<Array<GenreModel>>([]);
+  const [genres, setGenres] = useState<Array<Genre>>([]);
+  const [selectedGenres, setSelectedGenres] = useState<Array<Genre>>([]);
 
   const selectedGenresIDs = useGenre(selectedGenres);
-
-  // const cont = useSelector((s: any) => s.movies.content);
-  // console.log(cont);
-  // const dispatch = useDispatch();
-  // dispatch(fetchMovies());
+  const defaultPage = useParams().page;
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -76,7 +71,14 @@ const Movies: React.FC = () => {
             No videos with such criteria ;(
           </p>
         )}
-        <Pagination onSetPage={setPage} numOfPages={numOfPages} />
+        {content.length > 0 && (
+          <Pagination
+            onSetPage={setPage}
+            numOfPages={numOfPages}
+            page_type="movie"
+            defaultPage={page.toString()}
+          />
+        )}
       </ul>
     </>
   );

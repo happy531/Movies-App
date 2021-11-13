@@ -4,12 +4,14 @@ import axios from "axios";
 import SingleContent from "../../components/SingleContent/SingleContent";
 import Pagination from "../../components/Pagination/Pagination";
 
+import { useParams } from "react-router";
+
 import { REACT_APP_API_KEY } from "../../config/env";
 
 import classes from "../Page.module.scss";
 
 const Trending: React.FC = () => {
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(Number(useParams().page));
   const [numOfPages, setNumOfPages] = useState<number>(1);
   const [content, setContent] = useState<Array<any>>([]);
 
@@ -53,7 +55,14 @@ const Trending: React.FC = () => {
             No videos with such criteria ;(
           </p>
         )}
-        <Pagination onSetPage={setPage} numOfPages={numOfPages} />
+        {content.length > 0 && (
+          <Pagination
+            onSetPage={setPage}
+            numOfPages={numOfPages}
+            page_type="trending"
+            defaultPage={page.toString()}
+          />
+        )}
       </ul>
     </>
   );

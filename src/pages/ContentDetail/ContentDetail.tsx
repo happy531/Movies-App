@@ -1,15 +1,16 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router";
-import { REACT_APP_API_KEY } from "../../config/env";
+import axios from "axios";
 import { img_500, img_original } from "../../config/pictures_config";
-import Dot from "@mui/icons-material/FiberManualRecord";
 
-import Genre from "../../models/genre-model";
-
-import classes from "./ContentDetail.module.scss";
 import VoteScore from "../../components/UI/VoteScore";
 import YTtrailer from "../../components/YTtrailer/YTtrailer";
+
+import { useLocation } from "react-router";
+
+import Genre from "../../models/genre-model";
+import { REACT_APP_API_KEY } from "../../config/env";
+
+import classes from "./ContentDetail.module.scss";
 
 interface Props {}
 
@@ -82,8 +83,8 @@ const ContentDetail: React.FC<Props> = () => {
             <span className={classes.tagline}>{details.tagline}</span>
           </div>
           <div className={classes.overview}>
-            <h2>Overview</h2>
-            <span style={{ marginTop: "5px"}}>{details.overview}</span>
+            <h1>Overview</h1>
+            <span style={{ marginTop: "5px" }}>{details.overview}</span>
           </div>
         </section>
       </section>

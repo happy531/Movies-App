@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import axios from "axios";
 
 import { Chip } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 import { REACT_APP_API_KEY } from "../../config/env";
 import Genre from "../../models/genre-model";
@@ -33,14 +34,18 @@ const Genres: React.FC<Props> = ({
   type,
   setPage,
 }) => {
+  const navigate = useNavigate();
+
   const handleAddGenre = (genre: Genre) => {
     setSelectedGenres([...selectedGenres, genre]);
     setGenres(genres.filter((g) => g.id !== genre.id));
+    navigate(`/${type}/page/1`);
     setPage(1);
   };
   const handleRemoveGenre = (genre: { id: number; name: string }) => {
     setGenres([...genres, genre].sort(compare));
     setSelectedGenres(selectedGenres.filter((g) => g.id !== genre.id));
+    navigate(`/${type}/page/1`);
     setPage(1);
   };
 
