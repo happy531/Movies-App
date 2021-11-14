@@ -11,19 +11,23 @@ import Genre from "../../models/genre-model";
 import { REACT_APP_API_KEY } from "../../config/env";
 
 import classes from "./ContentDetail.module.scss";
+import LoadingSpinner from "../../components/UI/LoadingSpinner";
 
 interface Props {}
 
 const ContentDetail: React.FC<Props> = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const [details, setDetails] = useState<any>({});
   const [video, setVideo] = useState<string>();
-  const [credits, setCredits] = useState<Array<any>>([]);
+  const [cast, setCast] = useState<Array<any>>([]);
   const [genres, setGenres] = useState<Array<string>>([]);
 
   const detail_path = useLocation().pathname;
 
   useEffect(() => {
     const fetchDetails = async () => {
+      setLoading(true);
+
       const { data } = await axios.get(
         `https://api.themoviedb.org/3${detail_path}?api_key=${REACT_APP_API_KEY}&language=en-US`
       );
@@ -42,51 +46,60 @@ const ContentDetail: React.FC<Props> = () => {
     };
     fetchVideo();
 
-    const fetchCredits = async () => {
+    const fetchCast = async () => {
       const { data } = await axios.get(
         `https://api.themoviedb.org/3${detail_path}/credits?api_key=${REACT_APP_API_KEY}&language=en-US`
       );
-      setCredits(data.cast);
+      setCast(data.cast);
       console.log(data.cast);
+
+      setLoading(false);
     };
-    fetchCredits();
+    fetchCast();
   }, []);
 
   return (
     <section className={classes.container}>
-      <div
+      {!loading && <div
         className={classes.backdrop}
         style={{
           backgroundImage: `url(${img_original}/${details.backdrop_path})`,
         }}
-      />
+      />}
       <section className={classes.main_content}>
-        <div className={classes.poster}>
-          <img src={`${img_500}/${details.poster_path}`} alt="" />
-        </div>
-        <section className={classes.details}>
-          <h1>{details.title || details.name}</h1>
-          <div className={classes.info}>
-            <p>{details.release_date || details.first_air_date}</p>
-            <p>{genres}</p>
-            <p>{details.runtime || details.episode_run_time || "N/A"} mins</p>
-          </div>
-          <div className={classes.info}>
-            <div className={classes.vote_container}>
-              <VoteScore vote={details.vote_average} />
+        {loading && <LoadingSpinner />}
+        {!loading && (
+          <>
+            <div className={classes.poster}>
+              <img src={`${img_500}/${details.poster_path}`} alt="" />
             </div>
-            <YTtrailer
-              trailer_url={`https://www.youtube.com/watch?v=${video}`}
-            />
-          </div>
-          <div className={classes.info}>
-            <span className={classes.tagline}>{details.tagline}</span>
-          </div>
-          <div className={classes.overview}>
-            <h1>Overview</h1>
-            <span style={{ marginTop: "5px" }}>{details.overview}</span>
-          </div>
-        </section>
+            <section className={classes.details}>
+              <h1>{details.title || details.name}</h1>
+              <div className={classes.info}>
+                <p>{details.release_date || details.first_air_date}</p>
+                <p>{genres}</p>
+                <p>
+                  {details.runtime || details.episode_run_time || "N/A"} mins
+                </p>
+              </div>
+              <div className={classes.info}>
+                <div className={classes.vote_container}>
+                  <VoteScore vote={details.vote_average} />
+                </div>
+                <YTtrailer
+                  trailer_url={`https://www.youtube.com/watch?v=${video}`}
+                />
+              </div>
+              <div className={classes.info}>
+                <span className={classes.tagline}>{details.tagline}</span>
+              </div>
+              <div className={classes.overview}>
+                <h1>Overview</h1>
+                <span style={{ marginTop: "5px" }}>{details.overview}</span>
+              </div>
+            </section>
+          </>
+        )}
       </section>
     </section>
   );

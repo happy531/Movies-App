@@ -17,9 +17,11 @@
 
   .main_content {
     width: 95%;
+    min-height: 50vh;
     margin: 7.5%;
     display: flex;
     flex-direction: row;
+    position: relative;
 
     .poster {
       width: 320px;

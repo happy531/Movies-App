@@ -1,5 +1,7 @@
 .list-container {
   display: flex;
+  position: relative;
+  min-height: 20vh;
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;

@@ -34,21 +34,21 @@ export default function Navigation() {
         <BottomNavigationAction
           component={NavLink}
           style={{ color: "whitesmoke" }}
-          to="/trending"
+          to="/trending/page/1"
           label="Trending"
           icon={<TrendingIcon />}
         />
         <BottomNavigationAction
           component={NavLink}
           style={{ color: "whitesmoke" }}
-          to="/movie"
+          to="/movie/page/1"
           label="Movies"
           icon={<MovieIcon />}
         />
         <BottomNavigationAction
           component={NavLink}
           style={{ color: "whitesmoke" }}
-          to="/tv"
+          to="/tv/page/1"
           label="TV Series"
           icon={<TVSeriesIcon />}
         />

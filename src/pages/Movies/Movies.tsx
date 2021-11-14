@@ -4,6 +4,7 @@ import axios from "axios";
 import SingleContent from "../../components/SingleContent/SingleContent";
 import Pagination from "../../components/Pagination/Pagination";
 import Genres from "../../components/Genres/Genres";
+import LoadingSpinner from "../../components/UI/LoadingSpinner";
 
 import { useParams } from "react-router";
 import useGenre from "../../hooks/useGenre";
@@ -16,6 +17,7 @@ import classes from "../Page.module.scss";
 const Movies: React.FC = () => {
   const [page, setPage] = useState<number>(Number(useParams().page));
   const [numOfPages, setNumOfPages] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false);
   const [content, setContent] = useState<Array<any>>([]);
   const [genres, setGenres] = useState<Array<Genre>>([]);
   const [selectedGenres, setSelectedGenres] = useState<Array<Genre>>([]);
@@ -25,11 +27,15 @@ const Movies: React.FC = () => {
 
   useEffect(() => {
     const fetchMovies = async () => {
+      setLoading(true);
+
       const { data } = await axios.get(
         `https://api.themoviedb.org/3/movie/top_rated?api_key=${REACT_APP_API_KEY}&language=en-US&page=${page}&with_genres=${selectedGenresIDs}`
       );
       setContent(data.results);
       setNumOfPages(data.total_pages);
+
+      setLoading(false);
     };
 
     fetchMovies();
@@ -46,7 +52,9 @@ const Movies: React.FC = () => {
         setPage={setPage}
       />
       <ul className={classes["list-container"]}>
-        {content ? (
+        {loading && <LoadingSpinner />}
+        {content &&
+          !loading &&
           content.map((singleContent) => (
             <SingleContent
               key={singleContent.id}
@@ -60,18 +68,13 @@ const Movies: React.FC = () => {
               vote={singleContent.vote_average}
               media_type="movie"
             />
-          ))
-        ) : (
-          <p className={classes["error-message"]}>
-            Sorry, something went wrong while fetching data ;(
-          </p>
-        )}
-        {content.length === 0 && (
+          ))}
+        {content.length === 0 && !loading && (
           <p className={classes["error-message"]}>
             No videos with such criteria ;(
           </p>
         )}
-        {content.length > 0 && (
+        {content.length > 0 && !loading && (
           <Pagination
             onSetPage={setPage}
             numOfPages={numOfPages}

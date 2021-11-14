@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import { Chip } from "@mui/material";
@@ -6,6 +6,9 @@ import { useNavigate } from "react-router-dom";
 
 import { REACT_APP_API_KEY } from "../../config/env";
 import Genre from "../../models/genre-model";
+import LoadingSpinner from "../UI/LoadingSpinner";
+
+import classes from "./Genres.module.scss";
 
 function compare(a: Genre, b: Genre) {
   if (a.name < b.name) {
@@ -34,6 +37,7 @@ const Genres: React.FC<Props> = ({
   type,
   setPage,
 }) => {
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const handleAddGenre = (genre: Genre) => {
@@ -50,11 +54,15 @@ const Genres: React.FC<Props> = ({
   };
 
   useEffect(() => {
+    setLoading(true);
+
     const fetchGenres = async () => {
       const { data } = await axios.get(
         `https://api.themoviedb.org/3/genre/${type}/list?api_key=${REACT_APP_API_KEY}&language=en-US`
       );
       setGenres(data.genres);
+
+      setLoading(false);
     };
 
     fetchGenres();
@@ -63,11 +71,17 @@ const Genres: React.FC<Props> = ({
   }, [setGenres, type]);
 
   return (
-    <div>
+    <div className={classes.genres_container}>
+      {loading && <LoadingSpinner />}
       {selectedGenres &&
+        !loading &&
         selectedGenres.map((selectedGenre) => (
           <Chip
-            style={{ color: "black", backgroundColor: "#E2B616", margin: 2 }}
+            style={{
+              color: "black",
+              backgroundColor: "#E2B616",
+              margin: 2,
+            }}
             key={selectedGenre.id}
             label={selectedGenre.name}
             clickable
@@ -75,9 +89,14 @@ const Genres: React.FC<Props> = ({
           />
         ))}
       {genres &&
+        !loading &&
         genres.map((genre) => (
           <Chip
-            style={{ color: "black", backgroundColor: "whitesmoke", margin: 2 }}
+            style={{
+              color: "black",
+              backgroundColor: "whitesmoke",
+              margin: 2,
+            }}
             key={genre.id}
             label={genre.name}
             clickable

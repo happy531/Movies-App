@@ -3,6 +3,7 @@ import axios from "axios";
 
 import SingleContent from "../../components/SingleContent/SingleContent";
 import Pagination from "../../components/Pagination/Pagination";
+import LoadingSpinner from "../../components/UI/LoadingSpinner";
 
 import { useParams } from "react-router";
 
@@ -11,17 +12,22 @@ import { REACT_APP_API_KEY } from "../../config/env";
 import classes from "../Page.module.scss";
 
 const Trending: React.FC = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const [page, setPage] = useState<number>(Number(useParams().page));
   const [numOfPages, setNumOfPages] = useState<number>(1);
   const [content, setContent] = useState<Array<any>>([]);
 
   useEffect(() => {
     const fetchTrending = async () => {
+      setLoading(true);
+
       const { data } = await axios.get(
         `https://api.themoviedb.org/3/trending/all/week?api_key=${REACT_APP_API_KEY}&page=${page}`
       );
       setContent(data.results);
       setNumOfPages(data.total_pages);
+
+      setLoading(false);
     };
 
     fetchTrending();
@@ -30,7 +36,8 @@ const Trending: React.FC = () => {
   return (
     <>
       <ul className={classes["list-container"]}>
-        {content ? (
+        {loading && <LoadingSpinner />}
+        {content &&
           content.map((singleContent) => (
             <SingleContent
               key={singleContent.id}
@@ -44,18 +51,13 @@ const Trending: React.FC = () => {
               vote={singleContent.vote_average}
               media_type={singleContent.media_type}
             />
-          ))
-        ) : (
-          <p className={classes["error-message"]}>
-            Sorry, something went wrong while fetching data ;(
-          </p>
-        )}
-        {content.length === 0 && (
+          ))}
+        {!content && !loading && (
           <p className={classes["error-message"]}>
             No videos with such criteria ;(
           </p>
         )}
-        {content.length > 0 && (
+        {content.length > 0 && !loading && (
           <Pagination
             onSetPage={setPage}
             numOfPages={numOfPages}

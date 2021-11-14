@@ -12,10 +12,12 @@ import Genre from "../../models/genre-model";
 
 import { REACT_APP_API_KEY } from "../../config/env";
 import classes from "../Page.module.scss";
+import LoadingSpinner from "../../components/UI/LoadingSpinner";
 
 const Series: React.FC = () => {
   const [page, setPage] = useState<number>(Number(useParams().page));
   const [numOfPages, setNumOfPages] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false);
   const [content, setContent] = useState<Array<any>>([]);
   const [genres, setGenres] = useState<Array<Genre>>([]);
   const [selectedGenres, setSelectedGenres] = useState<Array<Genre>>([]);
@@ -24,11 +26,15 @@ const Series: React.FC = () => {
 
   useEffect(() => {
     const fetchSeries = async () => {
+      setLoading(true);
+
       const { data } = await axios.get(
         `https://api.themoviedb.org/3/tv/top_rated?api_key=${REACT_APP_API_KEY}&language=en-US&page=${page}&with_genres=${selectedGenresIDs}`
       );
       setContent(data.results);
       setNumOfPages(data.total_pages);
+
+      setLoading(false);
     };
 
     fetchSeries();
@@ -45,7 +51,9 @@ const Series: React.FC = () => {
         setPage={setPage}
       />
       <ul className={classes["list-container"]}>
-        {content ? (
+        {loading && <LoadingSpinner />}
+        {content &&
+          !loading &&
           content.map((singleContent) => (
             <SingleContent
               key={singleContent.id}
@@ -59,18 +67,13 @@ const Series: React.FC = () => {
               vote={singleContent.vote_average}
               media_type="tv"
             />
-          ))
-        ) : (
-          <p className={classes["error-message"]}>
-            Sorry, something went wrong while fetching data ;(
-          </p>
-        )}
-        {content.length === 0 && (
+          ))}
+        {content.length === 0 && !loading && (
           <p className={classes["error-message"]}>
             No videos with such criteria ;(
           </p>
         )}
-        {content.length > 0 && (
+        {content.length > 0 && !loading && (
           <Pagination
             onSetPage={setPage}
             numOfPages={numOfPages}
