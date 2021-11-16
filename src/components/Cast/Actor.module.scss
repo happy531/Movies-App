@@ -1,0 +1,22 @@
+.actor {
+  display: flex;
+  flex-direction: column;
+  object-fit: contain;
+  padding: 10px;
+
+  .actor_img {
+    border-radius: 10px;
+    box-shadow: 0 0 5px black;
+    font-weight: bold;
+  }
+
+  .actor_name {
+    font-weight: bold;
+    color: white;
+  }
+
+  .actor_character {
+    font-weight: normal;
+    color: gray;
+  }
+}

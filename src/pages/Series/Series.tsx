@@ -17,7 +17,7 @@ import LoadingSpinner from "../../components/UI/LoadingSpinner";
 const Series: React.FC = () => {
   const [page, setPage] = useState<number>(Number(useParams().page));
   const [numOfPages, setNumOfPages] = useState<number>(1);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [content, setContent] = useState<Array<any>>([]);
   const [genres, setGenres] = useState<Array<Genre>>([]);
   const [selectedGenres, setSelectedGenres] = useState<Array<Genre>>([]);

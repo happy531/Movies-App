@@ -17,13 +17,12 @@ import classes from "../Page.module.scss";
 const Movies: React.FC = () => {
   const [page, setPage] = useState<number>(Number(useParams().page));
   const [numOfPages, setNumOfPages] = useState<number>(1);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [content, setContent] = useState<Array<any>>([]);
   const [genres, setGenres] = useState<Array<Genre>>([]);
   const [selectedGenres, setSelectedGenres] = useState<Array<Genre>>([]);
 
   const selectedGenresIDs = useGenre(selectedGenres);
-  const defaultPage = useParams().page;
 
   useEffect(() => {
     const fetchMovies = async () => {
