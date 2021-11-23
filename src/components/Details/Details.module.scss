@@ -1,0 +1,57 @@
+.main_content {
+  min-height: 50vh;
+  margin: 5% 0 2% 0;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+
+  .poster {
+    width: 320px;
+    margin-right: 20px;
+
+    img {
+      width: 100%;
+      border-radius: 10px;
+    }
+  }
+
+  .details {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    height: 90%;
+
+    .info {
+      display: flex;
+      flex-direction: row;
+      margin-top: 15px;
+
+      p {
+        margin-right: 20px;
+      }
+
+      .vote_container {
+        position: relative;
+        height: 40px;
+        width: 40px;
+        transform: scale(1.2);
+
+        div {
+          top: 0;
+          left: 0;
+        }
+      }
+
+      .tagline {
+        color: gray;
+        font-style: italic;
+      }
+    }
+
+    .overview {
+      display: flex;
+      flex-direction: column;
+      margin-top: 15px;
+    }
+  }
+}
