@@ -1,12 +1,14 @@
-.main_content {
-  min-height: 50vh;
-  margin: 5% 0 2% 0;
+.details {
+  position: relative;
   display: flex;
   flex-direction: row;
-  position: relative;
+  flex-grow: 1;
+  min-height: 50vh;
+  margin: 5% 0 2% 0;
 
-  .poster {
-    width: 320px;
+  &_poster {
+    width: 30%;
+    height: 100%;
     margin-right: 20px;
 
     img {
@@ -15,22 +17,21 @@
     }
   }
 
-  .details {
+  &_main {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     width: 70%;
-    height: 90%;
 
-    .info {
+    &__info {
       display: flex;
       flex-direction: row;
-      margin-top: 15px;
 
       p {
         margin-right: 20px;
       }
 
-      .vote_container {
+      .vote {
         position: relative;
         height: 40px;
         width: 40px;
@@ -48,10 +49,33 @@
       }
     }
 
-    .overview {
+    &__overview {
       display: flex;
       flex-direction: column;
-      margin-top: 15px;
+
+      span {
+        margin-top: 5px;
+      }
+    }
+
+    &__additional {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      grid-gap: 10px;
+      min-height: 25%;
+
+      .slice {
+        &__title {
+          font-weight: normal;
+          letter-spacing: 2px;
+        }
+
+        &__text {
+          font-weight: normal;
+          letter-spacing: 2px;
+          color: gray;
+        }
+      }
     }
   }
 }
