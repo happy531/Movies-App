@@ -73,15 +73,15 @@ const Movies: React.FC = () => {
             No videos with such criteria ;(
           </p>
         )}
-        {content.length > 0 && !loading && (
-          <Pagination
-            onSetPage={setPage}
-            numOfPages={numOfPages}
-            page_type="movie"
-            defaultPage={page.toString()}
-          />
-        )}
       </ul>
+      {content.length > 0 && !loading && (
+        <Pagination
+          onSetPage={setPage}
+          numOfPages={numOfPages}
+          page_type="movie"
+          defaultPage={page.toString()}
+        />
+      )}
     </>
   );
 };

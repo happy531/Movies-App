@@ -38,34 +38,37 @@ const Trending: React.FC = () => {
       <ul className={classes["list-container"]}>
         {loading && <LoadingSpinner />}
         {content &&
-          content.map((singleContent) => (
-            <SingleContent
-              key={singleContent.id}
-              id={singleContent.id}
-              title={singleContent.title || singleContent.name}
-              release_date={
-                singleContent.release_date || singleContent.first_air_date
-              }
-              poster_path={singleContent.poster_path}
-              backdrop_path={singleContent.backdrop_path}
-              vote={singleContent.vote_average}
-              media_type={singleContent.media_type}
-            />
-          ))}
+          content.map(
+            (singleContent) =>
+              singleContent.title && (
+                <SingleContent
+                  key={singleContent.id}
+                  id={singleContent.id}
+                  title={singleContent.title || singleContent.name}
+                  release_date={
+                    singleContent.release_date || singleContent.first_air_date
+                  }
+                  poster_path={singleContent.poster_path}
+                  backdrop_path={singleContent.backdrop_path}
+                  vote={singleContent.vote_average}
+                  media_type={singleContent.media_type}
+                />
+              )
+          )}
         {!content && !loading && (
           <p className={classes["error-message"]}>
             No videos with such criteria ;(
           </p>
         )}
-        {content.length > 0 && !loading && (
-          <Pagination
-            onSetPage={setPage}
-            numOfPages={numOfPages}
-            page_type="trending"
-            defaultPage={page.toString()}
-          />
-        )}
       </ul>
+      {content.length > 0 && !loading && (
+        <Pagination
+          onSetPage={setPage}
+          numOfPages={numOfPages}
+          page_type="trending"
+          defaultPage={page.toString()}
+        />
+      )}
     </>
   );
 };

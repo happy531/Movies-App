@@ -5,10 +5,7 @@ import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import TrendingIcon from "@mui/icons-material/Whatshot";
 import MovieIcon from "@mui/icons-material/Movie";
 import TVSeriesIcon from "@mui/icons-material/Tv";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import { NavLink } from "react-router-dom";
-
-// import classes from "./Navigation.module.scss";
 
 export default function Navigation() {
   const [value, setValue] = React.useState<number>(0);
@@ -51,13 +48,6 @@ export default function Navigation() {
           to="/tv/page/1"
           label="TV Series"
           icon={<TVSeriesIcon />}
-        />
-        <BottomNavigationAction
-          component={NavLink}
-          style={{ color: "whitesmoke" }}
-          to="/favourites"
-          label="Favourites"
-          icon={<FavoriteIcon />}
         />
       </BottomNavigation>
     </Box>

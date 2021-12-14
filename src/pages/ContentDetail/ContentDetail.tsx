@@ -34,7 +34,6 @@ const ContentDetail: React.FC<Props> = () => {
       const { data } = await axios.get(
         `https://api.themoviedb.org/3${detail_path}?api_key=${REACT_APP_API_KEY}&language=en-US`
       );
-      console.log(data);
       setDetails(data);
       setGenres(data.genres.map((g: Genre) => `${g.name} / `));
     };

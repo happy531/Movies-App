@@ -6,19 +6,10 @@ import { useNavigate } from "react-router-dom";
 
 import { REACT_APP_API_KEY } from "../../config/env";
 import Genre from "../../models/genre-model";
+import { compare } from "../../utils/utils";
 import LoadingSpinner from "../UI/LoadingSpinner";
 
 import classes from "./Genres.module.scss";
-
-function compare(a: Genre, b: Genre) {
-  if (a.name < b.name) {
-    return -1;
-  }
-  if (a.name > b.name) {
-    return 1;
-  }
-  return 0;
-}
 
 interface Props {
   genres: Array<Genre>;

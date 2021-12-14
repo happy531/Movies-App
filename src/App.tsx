@@ -8,7 +8,6 @@ import { Container } from "@mui/material";
 import Trending from "./pages/Trending/Trending";
 import Movies from "./pages/Movies/Movies";
 import Series from "./pages/Series/Series";
-import Favourites from "./pages/Favourites/Favourites";
 import ContentDetail from "./pages/ContentDetail/ContentDetail";
 
 import classes from "./App.module.scss";
@@ -29,7 +28,6 @@ function App() {
             <Route path="/movie" element={<Navigate to="/movie/page/1" />} />
             <Route path="/tv/page/:page" element={<Series />} />
             <Route path="/tv" element={<Navigate to="/tv/page/1" />} />
-            <Route path="/favourites" element={<Favourites />} />
             <Route path="/movie/:id" element={<ContentDetail />} />
             <Route path="/tv/:id" element={<ContentDetail />} />
             <Route path="*" element={<Navigate to="/trending/page/1" />} />
