@@ -1,9 +1,9 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 
 import Header from "./components/Header/Header";
 import Navigation from "./components/Navigation/Navigation";
-import { Container } from "@mui/material";
+import {Container} from "@mui/material";
 
 import Trending from "./pages/Trending/Trending";
 import Movies from "./pages/Movies/Movies";

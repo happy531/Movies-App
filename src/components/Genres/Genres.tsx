@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 
-import { Chip } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import {Chip} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
-import { REACT_APP_API_KEY } from "../../config/env";
 import Genre from "../../models/genre-model";
-import { compare } from "../../utils/utils";
+import {compare} from "../../utils/utils";
 import LoadingSpinner from "../UI/LoadingSpinner";
 
 import classes from "./Genres.module.scss";
@@ -49,7 +48,7 @@ const Genres: React.FC<Props> = ({
 
     const fetchGenres = async () => {
       const { data } = await axios.get(
-        `https://api.themoviedb.org/3/genre/${type}/list?api_key=${REACT_APP_API_KEY}&language=en-US`
+        `https://api.themoviedb.org/3/genre/${type}/list?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
       );
       setGenres(data.genres);
 

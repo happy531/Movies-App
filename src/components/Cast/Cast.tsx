@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import AliceCarousel from "react-alice-carousel";
 import Actor from "./Actor";
 
-import { img_300, noPicture } from "../../config/pictures_config";
+import {img_300, noPicture} from "../../config/pictures_config";
 
 import "react-alice-carousel/lib/alice-carousel.css";
 import axios from "axios";
-import { REACT_APP_API_KEY } from "../../config/env";
 
 interface Props {
   detail_path: string;
@@ -17,7 +16,7 @@ const Cast: React.FC<Props> = ({ detail_path }) => {
   useEffect(() => {
     const fetchCast = async () => {
       const { data } = await axios.get(
-        `https://api.themoviedb.org/3${detail_path}/credits?api_key=${REACT_APP_API_KEY}&language=en-US`
+        `https://api.themoviedb.org/3${detail_path}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
       );
       setCast(data.cast);
     };
