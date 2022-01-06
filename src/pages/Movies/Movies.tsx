@@ -29,7 +29,7 @@ const Movies: React.FC = () => {
 
   useEffect(() => {
     const url =
-        `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}&with_genres=${selectedGenresIDs}`;
+        `movie/top_rated?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}&with_genres=${selectedGenresIDs}`;
 
     setLoading(true);
     dispatch(fetchContent(url));

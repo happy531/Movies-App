@@ -12,26 +12,28 @@ import classes from "../Page.module.scss";
 
 const Trending: React.FC = () => {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState<boolean>(false);
+  // const [loading, setLoading] = useState<boolean>(false);
   const [page, setPage] = useState<number>(Number(useParams().page));
 
   // @ts-ignore
   const {items} = useSelector(state => state.content);
   // @ts-ignore
   const {numOfPages} = useSelector(state => state.content);
+  // @ts-ignore
+  const {status} = useSelector(state => state.content);
 
-  const url = `https://api.themoviedb.org/3/trending/all/week?api_key=${process.env.REACT_APP_API_KEY}&page=${page}`;
+  const url = `trending/all/week?api_key=${process.env.REACT_APP_API_KEY}&page=${page}`;
   useEffect(() => {
-    setLoading(true);
+    // setLoading(true);
     dispatch(fetchContent(url));
-    setLoading(false);
+    // setLoading(false);
 
   }, [page, dispatch, url]);
 
   return (
     <>
       <ul className={classes["list-container"]}>
-        {loading && <LoadingSpinner />}
+        {status === "loading" && <LoadingSpinner />}
         {items &&
             items.map(
             (singleContent: any) =>
@@ -50,13 +52,13 @@ const Trending: React.FC = () => {
                 />
               )
           )}
-        {!items && !loading && (
+        {!items && status !== "loading" && (
           <p className={classes["error-message"]}>
             No videos with such criteria ;(
           </p>
         )}
       </ul>
-      {items.length > 0 && !loading && (
+      {items.length > 0 && status !== "loading" && (
         <Pagination
           onSetPage={setPage}
           numOfPages={numOfPages}

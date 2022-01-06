@@ -30,8 +30,8 @@ const Series: React.FC = () => {
   const {numOfPages} = useSelector(state => state.content);
 
   useEffect(() => {
-    const url = 
-        `https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}&with_genres=${selectedGenresIDs}`;
+    const url =
+        `tv/top_rated?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}&with_genres=${selectedGenresIDs}`;
 
     setLoading(true);
     dispatch(fetchContent(url));
