@@ -1,40 +1,44 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import {useParams} from "react-router";
+
 import {fetchContent} from '../../redux/content-slice';
+import {minSpinnerLoading} from "../../utils/utils";
 
 import SingleContent from "../../components/SingleContent/SingleContent";
 import Pagination from "../../components/Pagination/Pagination";
 import LoadingSpinner from "../../components/UI/LoadingSpinner";
 
-import {useParams} from "react-router";
-
 import classes from "../Page.module.scss";
 
 const Trending: React.FC = () => {
   const dispatch = useDispatch();
-  // const [loading, setLoading] = useState<boolean>(false);
   const [page, setPage] = useState<number>(Number(useParams().page));
+  const [loading, setLoading] = useState<boolean>(false);
 
   // @ts-ignore
-  const {items} = useSelector(state => state.content);
-  // @ts-ignore
-  const {numOfPages} = useSelector(state => state.content);
-  // @ts-ignore
-  const {status} = useSelector(state => state.content);
+  const {items, numOfPages, status} = useSelector(state => state.content);
 
   const url = `trending/all/week?api_key=${process.env.REACT_APP_API_KEY}&page=${page}`;
   useEffect(() => {
-    // setLoading(true);
     dispatch(fetchContent(url));
-    // setLoading(false);
 
   }, [page, dispatch, url]);
+
+  useEffect(() => {
+    if(status==="loading") {
+      setLoading(true);
+    }
+    else {
+      setTimeout(() => {setLoading(false)}, minSpinnerLoading);
+    }
+  }, [status]);
 
   return (
     <>
       <ul className={classes["list-container"]}>
-        {status === "loading" && <LoadingSpinner />}
-        {items &&
+        {loading && <LoadingSpinner />}
+        {!loading && items &&
             items.map(
             (singleContent: any) =>
               singleContent.title && (
@@ -52,13 +56,13 @@ const Trending: React.FC = () => {
                 />
               )
           )}
-        {!items && status !== "loading" && (
+        {!items && !loading && (
           <p className={classes["error-message"]}>
             No videos with such criteria ;(
           </p>
         )}
       </ul>
-      {items.length > 0 && status !== "loading" && (
+      {items.length > 0 && !loading && (
         <Pagination
           onSetPage={setPage}
           numOfPages={numOfPages}

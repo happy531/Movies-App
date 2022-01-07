@@ -1,16 +1,15 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchContent} from "../../redux/content-slice";
+import {useParams} from "react-router";
+import useGenre from "../../hooks/useGenre";
 
 import SingleContent from "../../components/SingleContent/SingleContent";
 import Pagination from "../../components/Pagination/Pagination";
 import Genres from "../../components/Genres/Genres";
 import LoadingSpinner from "../../components/UI/LoadingSpinner";
 
-import {useParams} from "react-router";
-import useGenre from "../../hooks/useGenre";
-
-import Genre from "../../models/genre-model";
+import {fetchContent} from "../../redux/content-slice";
+import {minSpinnerLoading} from "../../utils/utils";
 
 import classes from "../Page.module.scss";
 
@@ -18,39 +17,40 @@ const Movies: React.FC = () => {
   const dispatch = useDispatch();
   const [page, setPage] = useState<number>(Number(useParams().page));
   const [loading, setLoading] = useState<boolean>(true);
-  const [genres, setGenres] = useState<Array<Genre>>([]);
-  const [selectedGenres, setSelectedGenres] = useState<Array<Genre>>([]);
+
+  // @ts-ignore
+  const {items, numOfPages, status} = useSelector(state => state.content);
+  // @ts-ignore
+  const {selectedGenres} = useSelector(state => state.genres);
 
   const selectedGenresIDs = useGenre(selectedGenres);
-  // @ts-ignore
-  const {items} = useSelector(state => state.content);
-  // @ts-ignore
-  const {numOfPages} = useSelector(state => state.content);
 
   useEffect(() => {
     const url =
         `movie/top_rated?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}&with_genres=${selectedGenresIDs}`;
 
-    setLoading(true);
     dispatch(fetchContent(url));
-    setLoading(false);
 
   }, [page, selectedGenresIDs, dispatch]);
+
+  useEffect(() => {
+    if(status==="loading") {
+      setLoading(true);
+    }
+    else {
+      setTimeout(() => {setLoading(false)}, minSpinnerLoading);
+    }
+  }, [status]);
 
   return (
     <>
       <Genres
-        genres={genres}
-        setGenres={setGenres}
-        selectedGenres={selectedGenres}
-        setSelectedGenres={setSelectedGenres}
         type="movie"
         setPage={setPage}
       />
       <ul className={classes["list-container"]}>
         {loading && <LoadingSpinner />}
-        {items &&
-          !loading &&
+        {items && !loading &&
             items.map((singleContent: any) => (
             <SingleContent
               key={singleContent.id}
@@ -65,13 +65,13 @@ const Movies: React.FC = () => {
               media_type="movie"
             />
           ))}
-        {items.length === 0 && !loading && (
+        {!items && !loading && (
           <p className={classes["error-message"]}>
             No videos with such criteria ;(
           </p>
         )}
       </ul>
-      {items.length > 0 && !loading && (
+      {items && !loading && (
         <Pagination
           onSetPage={setPage}
           numOfPages={numOfPages}

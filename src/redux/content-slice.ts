@@ -26,11 +26,11 @@ const contentSlice = createSlice({
         [fetchContent.fulfilled]: (state, action) => {
             state.items = action.payload.results;
             state.numOfPages = action.payload.total_pages;
-            state.status = "finished"
+            state.status = "finished";
         },
         // @ts-ignore
         [fetchContent.rejected]: (state, action) => {
-            state.status = "failed"
+            state.status = "failed";
         }
     }
 });

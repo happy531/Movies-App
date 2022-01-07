@@ -1,71 +1,65 @@
 import React, {useEffect, useState} from "react";
-import axios from "axios";
 
-import {Chip} from "@mui/material";
 import {useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchGenres, genreActions} from "../../redux/genre-slice";
+import {minSpinnerLoading} from "../../utils/utils";
+
+import LoadingSpinner from "../UI/LoadingSpinner";
+import {Chip} from "@mui/material";
 
 import Genre from "../../models/genre-model";
-import {compare} from "../../utils/utils";
-import LoadingSpinner from "../UI/LoadingSpinner";
 
 import classes from "./Genres.module.scss";
 
 interface Props {
-  genres: Array<Genre>;
-  setGenres: (genres: Array<Genre>) => void;
-  selectedGenres: Array<Genre>;
-  setSelectedGenres: (genres: Array<Genre>) => void;
   type: string;
   setPage: (page: number) => void;
 }
 
 const Genres: React.FC<Props> = ({
-  genres,
-  setGenres,
-  selectedGenres,
-  setSelectedGenres,
   type,
   setPage,
 }) => {
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
+  // @ts-ignore
+  const {genres, selectedGenres, status} = useSelector(state => state.genres);
+
   const handleAddGenre = (genre: Genre) => {
-    setSelectedGenres([...selectedGenres, genre]);
-    setGenres(genres.filter((g) => g.id !== genre.id));
+    dispatch(genreActions.addGenre(genre));
     navigate(`/${type}/page/1`);
     setPage(1);
   };
   const handleRemoveGenre = (genre: { id: number; name: string }) => {
-    setGenres([...genres, genre].sort(compare));
-    setSelectedGenres(selectedGenres.filter((g) => g.id !== genre.id));
+    dispatch(genreActions.removeGenre(genre));
     navigate(`/${type}/page/1`);
     setPage(1);
   };
 
   useEffect(() => {
-    setLoading(true);
+    const url = `genre/${type}/list?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`;
 
-    const fetchGenres = async () => {
-      const { data } = await axios.get(
-        `https://api.themoviedb.org/3/genre/${type}/list?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
-      );
-      setGenres(data.genres);
+    dispatch(fetchGenres(url));
 
-      setLoading(false);
-    };
+  }, [type, dispatch]);
 
-    fetchGenres();
-
-    return () => setGenres([]);
-  }, [setGenres, type]);
+  useEffect(() => {
+    if(status==="loading") {
+      setLoading(true);
+    }
+    else {
+      setTimeout(() => {setLoading(false)}, minSpinnerLoading);
+    }
+  }, [status]);
 
   return (
     <div className={classes.genres_container}>
       {loading && <LoadingSpinner />}
-      {selectedGenres &&
-        !loading &&
-        selectedGenres.map((selectedGenre) => (
+      {selectedGenres && !loading &&
+          selectedGenres.map((selectedGenre: Genre) => (
           <Chip
             style={{
               color: "black",
@@ -78,9 +72,8 @@ const Genres: React.FC<Props> = ({
             onDelete={() => handleRemoveGenre(selectedGenre)}
           />
         ))}
-      {genres &&
-        !loading &&
-        genres.map((genre) => (
+      {genres && !loading &&
+          genres.map((genre: Genre) => (
           <Chip
             style={{
               color: "black",
