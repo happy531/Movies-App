@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {useParams} from "react-router";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router";
 
-import {fetchContent} from '../../redux/content-slice';
-import {minSpinnerLoading} from "../../utils/utils";
+import { fetchContent } from "../../redux/content-slice";
+import { minSpinnerLoading } from "../../utils/utils";
 
 import SingleContent from "../../components/SingleContent/SingleContent";
 import Pagination from "../../components/Pagination/Pagination";
@@ -17,20 +17,20 @@ const Trending: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   // @ts-ignore
-  const {items, numOfPages, status} = useSelector(state => state.content);
+  const { items, numOfPages, status } = useSelector((state) => state.content);
 
-  const url = `trending/all/week?api_key=${process.env.REACT_APP_API_KEY}&page=${page}`;
+  const url = `/trending/all/week?api_key=${process.env.REACT_APP_API_KEY}&page=${page}`;
   useEffect(() => {
     dispatch(fetchContent(url));
-
   }, [page, dispatch, url]);
 
   useEffect(() => {
-    if(status==="loading") {
+    if (status === "loading") {
       setLoading(true);
-    }
-    else {
-      setTimeout(() => {setLoading(false)}, minSpinnerLoading);
+    } else {
+      setTimeout(() => {
+        setLoading(false);
+      }, minSpinnerLoading);
     }
   }, [status]);
 
@@ -38,8 +38,9 @@ const Trending: React.FC = () => {
     <>
       <ul className={classes["list-container"]}>
         {loading && <LoadingSpinner />}
-        {!loading && items &&
-            items.map(
+        {!loading &&
+          items &&
+          items.map(
             (singleContent: any) =>
               singleContent.title && (
                 <SingleContent

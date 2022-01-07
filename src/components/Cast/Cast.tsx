@@ -1,30 +1,31 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCast } from "../../redux/cast-slice";
+
 import AliceCarousel from "react-alice-carousel";
 import Actor from "./Actor";
 
-import {img_300, noPicture} from "../../config/pictures_config";
+import { img_300, noPicture } from "../../config/pictures_config";
 
 import "react-alice-carousel/lib/alice-carousel.css";
-import axios from "axios";
 
 interface Props {
   detail_path: string;
 }
 
 const Cast: React.FC<Props> = ({ detail_path }) => {
-  const [cast, setCast] = useState<Array<any>>([]);
+  const dispatch = useDispatch();
+  //@ts-ignore
+  const { cast } = useSelector((state) => state.cast);
+
   useEffect(() => {
-    const fetchCast = async () => {
-      const { data } = await axios.get(
-        `https://api.themoviedb.org/3${detail_path}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
-      );
-      setCast(data.cast);
-    };
-    fetchCast();
-  }, [detail_path]);
+    const url = `${detail_path}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`;
+    dispatch(fetchCast(url));
+  }, [detail_path, dispatch]);
 
   const items =
     cast &&
+    //@ts-ignore
     cast.map(({ profile_path, name, character }) => (
       <Actor
         profile_path={profile_path ? `${img_300}/${profile_path}` : noPicture}

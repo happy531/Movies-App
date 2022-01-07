@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 import VoteScore from "../UI/VoteScore";
 import YTtrailer from "../YTtrailer/YTtrailer";
@@ -6,22 +7,14 @@ import { img_300, unavailable } from "../../config/pictures_config";
 
 import classes from "./Details.module.scss";
 
-// interface Props {
-//     poster_path: string;
-//     title: string;
-//     name: string;
-//     release_date: string;
-//     first_air_date: string;
-//
-// }
+interface Props {}
 
-interface Props {
-  details: any;
-  video: string;
-  genres: Array<string>;
-}
+const Details: React.FC<Props> = () => {
+  const { details, genres, video } = useSelector(
+    // @ts-ignore
+    (state) => state.details
+  );
 
-const Details: React.FC<Props> = ({ details, video, genres }) => {
   return (
     <section className={classes.details}>
       <div className={classes.details_poster}>

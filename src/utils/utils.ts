@@ -10,4 +10,4 @@ export function compare(a: Genre, b: Genre) {
   return 0;
 }
 
-export const minSpinnerLoading = 300;
+export const minSpinnerLoading = 150;

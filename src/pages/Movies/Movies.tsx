@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {useParams} from "react-router";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router";
 import useGenre from "../../hooks/useGenre";
 
 import SingleContent from "../../components/SingleContent/SingleContent";
@@ -8,8 +8,8 @@ import Pagination from "../../components/Pagination/Pagination";
 import Genres from "../../components/Genres/Genres";
 import LoadingSpinner from "../../components/UI/LoadingSpinner";
 
-import {fetchContent} from "../../redux/content-slice";
-import {minSpinnerLoading} from "../../utils/utils";
+import { fetchContent } from "../../redux/content-slice";
+import { minSpinnerLoading } from "../../utils/utils";
 
 import classes from "../Page.module.scss";
 
@@ -19,39 +19,36 @@ const Movies: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   // @ts-ignore
-  const {items, numOfPages, status} = useSelector(state => state.content);
+  const { items, numOfPages, status } = useSelector((state) => state.content);
   // @ts-ignore
-  const {selectedGenres} = useSelector(state => state.genres);
+  const { selectedGenres } = useSelector((state) => state.genres);
 
   const selectedGenresIDs = useGenre(selectedGenres);
 
   useEffect(() => {
-    const url =
-        `movie/top_rated?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}&with_genres=${selectedGenresIDs}`;
+    const url = `/movie/top_rated?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}&with_genres=${selectedGenresIDs}`;
 
     dispatch(fetchContent(url));
-
   }, [page, selectedGenresIDs, dispatch]);
 
   useEffect(() => {
-    if(status==="loading") {
+    if (status === "loading") {
       setLoading(true);
-    }
-    else {
-      setTimeout(() => {setLoading(false)}, minSpinnerLoading);
+    } else {
+      setTimeout(() => {
+        setLoading(false);
+      }, minSpinnerLoading);
     }
   }, [status]);
 
   return (
     <>
-      <Genres
-        type="movie"
-        setPage={setPage}
-      />
+      <Genres type="movie" setPage={setPage} />
       <ul className={classes["list-container"]}>
         {loading && <LoadingSpinner />}
-        {items && !loading &&
-            items.map((singleContent: any) => (
+        {items &&
+          !loading &&
+          items.map((singleContent: any) => (
             <SingleContent
               key={singleContent.id}
               id={singleContent.id}
