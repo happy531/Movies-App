@@ -1,16 +1,19 @@
+@use "../scss/_variables.scss" as *;
+
 .list-container {
   //display: flex;
   //flex-direction: row;
   //justify-content: space-between;
   //flex-wrap: wrap;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
   position: relative;
   min-height: 20vh;
+  margin-top: 10px;
 }
 
 .error-message {
-  color: whitesmoke;
+  color: $white;
   font-weight: bold;
   margin: 20vh auto;
 }

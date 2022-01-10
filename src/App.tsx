@@ -1,22 +1,21 @@
 import React from "react";
-import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import Header from "./components/Header/Header";
-import Navigation from "./components/Navigation/Navigation";
-import {Container} from "@mui/material";
+import { Container } from "@mui/material";
 
 import Trending from "./pages/Trending/Trending";
 import Movies from "./pages/Movies/Movies";
 import Series from "./pages/Series/Series";
 import ContentDetail from "./pages/ContentDetail/ContentDetail";
 
-import classes from "./App.module.scss";
+import "./App.scss";
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
-      <main className={classes.main}>
+      <main>
         <Container>
           <Routes>
             <Route path="/trending/page/:page" element={<Trending />} />
@@ -34,7 +33,6 @@ function App() {
           </Routes>
         </Container>
       </main>
-      <Navigation />
     </BrowserRouter>
   );
 }

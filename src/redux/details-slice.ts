@@ -27,6 +27,7 @@ const detailsSlice = createSlice({
   extraReducers: {
     // @ts-ignore
     [fetchDetailsAndVideo.pending]: (state, action) => {
+      state.details = [];
       state.status = "loading";
     },
     // @ts-ignore
@@ -47,6 +48,6 @@ const detailsSlice = createSlice({
   },
 });
 
-export const detailsActions = detailsSlice.actions;
+// export const detailsActions = detailsSlice.actions;
 
 export default detailsSlice.reducer;
