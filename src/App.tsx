@@ -4,7 +4,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
 import { Container } from "@mui/material";
 
-import Trending from "./pages/Trending/Trending";
+import Trending from "./pages/Home/Home";
 import Movies from "./pages/Movies/Movies";
 import Series from "./pages/Series/Series";
 import ContentDetail from "./pages/ContentDetail/ContentDetail";

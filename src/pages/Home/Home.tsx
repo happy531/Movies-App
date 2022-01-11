@@ -1,28 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
 
 import { fetchContent } from "../../redux/content-slice";
 import { minSpinnerLoading } from "../../utils/utils";
-
 import SingleContent from "../../components/SingleContent/SingleContent";
-import Pagination from "../../components/Pagination/Pagination";
-import LoadingSpinner from "../../components/UI/LoadingSpinner";
+import Slider from "react-slick";
+import { slider_settings } from "../../config/slider-config";
+// import LoadingSpinner from "../../components/UI/LoadingSpinner";
+// import classes from "../Page.module.scss";
 
-import classes from "../Page.module.scss";
-
-const Trending: React.FC = () => {
+const Home: React.FC = () => {
   const dispatch = useDispatch();
-  const [page, setPage] = useState<number>(Number(useParams().page));
   const [loading, setLoading] = useState<boolean>(false);
 
   // @ts-ignore
-  const { items, numOfPages, status } = useSelector((state) => state.content);
+  const { items, status } = useSelector((state) => state.content);
 
-  const url = `/trending/all/week?api_key=${process.env.REACT_APP_API_KEY}&page=${page}`;
+  const url = `/trending/movie/week?api_key=${process.env.REACT_APP_API_KEY}`;
   useEffect(() => {
     dispatch(fetchContent(url));
-  }, [page, dispatch, url]);
+  }, [dispatch, url]);
 
   useEffect(() => {
     if (status === "loading") {
@@ -36,8 +33,8 @@ const Trending: React.FC = () => {
 
   return (
     <>
-      <ul className={classes["list-container"]}>
-        {loading && <LoadingSpinner />}
+      <h1 style={{ fontSize: "18px", marginLeft: "7px" }}>Trending Movies</h1>
+      <Slider {...slider_settings}>
         {!loading &&
           items &&
           items.map(
@@ -57,22 +54,9 @@ const Trending: React.FC = () => {
                 />
               )
           )}
-        {!items && !loading && (
-          <p className={classes["error-message"]}>
-            No videos with such criteria ;(
-          </p>
-        )}
-      </ul>
-      {items.length > 0 && !loading && (
-        <Pagination
-          onSetPage={setPage}
-          numOfPages={numOfPages}
-          page_type="trending"
-          defaultPage={page.toString()}
-        />
-      )}
+      </Slider>
     </>
   );
 };
 
-export default Trending;
+export default Home;

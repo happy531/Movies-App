@@ -11,19 +11,14 @@ import classes from "./SingleContent.module.scss";
 
 const SingleContent: React.FC<SingleContentModel> = (props) => {
   return (
-    <li>
-      <Link
-        to={`/${props.media_type}/${props.id}`}
-        className={classes.container}
-      >
-        <img
-          src={`${img_300}/${props.poster_path}` || unavailable}
-          alt={props.title}
-        />
-        <VoteScore vote={props.vote} />
-        <span className={classes.title}>{props.title}</span>
-      </Link>
-    </li>
+    <Link to={`/${props.media_type}/${props.id}`} className={classes.container}>
+      <img
+        src={`${img_300}/${props.poster_path}` || unavailable}
+        alt={props.title}
+      />
+      <VoteScore vote={props.vote} />
+      <span className={classes.title}>{props.title}</span>
+    </Link>
   );
 };
 

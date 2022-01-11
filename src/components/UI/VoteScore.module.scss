@@ -4,15 +4,16 @@
 .vote {
   @include flex(center, center);
   position: absolute;
-  left: 65%;
-  top: 70%;
+  left: 75%;
+  top: 78%;
   transform: translate(-50%, -50%);
   color: $black;
   background-color: $white;
-  border: 3px solid;
+  border: 2.5px solid;
   border-radius: 50%;
   width: 35px;
   height: 35px;
   font-size: 14px;
   font-weight: bold;
+  z-index: 12;
 }
