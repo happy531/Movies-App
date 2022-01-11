@@ -13,7 +13,7 @@ export default function LoadingSpinner() {
         transform: "translate(-50%, -50%)",
       }}
     >
-      <CircularProgress />
+      <CircularProgress style={{ color: "#ff0000" }} />
     </Box>
   );
 }

@@ -50,7 +50,7 @@ const Pagination: React.FC<Props> = ({
         count={numOfPages}
         defaultPage={Number(defaultPage)}
         page={Number(defaultPage)}
-        color="primary"
+        color="secondary"
         variant="outlined"
         shape="rounded"
         hideNextButton
