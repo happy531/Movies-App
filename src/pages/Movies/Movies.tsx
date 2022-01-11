@@ -10,6 +10,7 @@ import LoadingSpinner from "../../components/UI/LoadingSpinner";
 
 import { fetchContent } from "../../redux/content-slice";
 import { minSpinnerLoading } from "../../utils/utils";
+import { RootState } from "../../redux/redux-store";
 
 import classes from "../Page.module.scss";
 
@@ -18,10 +19,10 @@ const Movies: React.FC = () => {
   const [page, setPage] = useState<number>(Number(useParams().page));
   const [loading, setLoading] = useState<boolean>(true);
 
-  // @ts-ignore
-  const { items, numOfPages, status } = useSelector((state) => state.content);
-  // @ts-ignore
-  const { selectedGenres } = useSelector((state) => state.genres);
+  const { items, numOfPages, status } = useSelector(
+    (state: RootState) => state.content
+  );
+  const { selectedGenres } = useSelector((state: RootState) => state.genres);
 
   const selectedGenresIDs = useGenre(selectedGenres);
 
@@ -53,11 +54,7 @@ const Movies: React.FC = () => {
               key={singleContent.id}
               id={singleContent.id}
               title={singleContent.title || singleContent.name}
-              release_date={
-                singleContent.release_date || singleContent.first_air_date
-              }
               poster_path={singleContent.poster_path}
-              backdrop_path={singleContent.backdrop_path}
               vote={singleContent.vote_average}
               media_type="movie"
             />

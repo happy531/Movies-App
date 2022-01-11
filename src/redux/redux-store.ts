@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 
+import homeSlice from "./home-slice";
 import contentSlice from "./content-slice";
 import genresSlice from "./genre-slice";
 import detailsSlice from "./details-slice";
@@ -8,6 +9,7 @@ import searchSlice from "./search-slice";
 
 const store = configureStore({
   reducer: {
+    home: homeSlice,
     content: contentSlice,
     genres: genresSlice,
     details: detailsSlice,
@@ -15,5 +17,8 @@ const store = configureStore({
     search: searchSlice,
   },
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
 export default store;

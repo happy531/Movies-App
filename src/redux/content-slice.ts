@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../axios/axios";
 
 export const fetchContent = createAsyncThunk(
-  "trending/getTrending",
+  "content/getContent",
   async (url: string, getState) => {
     const { data } = await axios.get(url);
     return data;
@@ -10,7 +10,7 @@ export const fetchContent = createAsyncThunk(
 );
 
 const contentSlice = createSlice({
-  name: "trending",
+  name: "content",
   initialState: {
     items: [],
     numOfPages: 1,

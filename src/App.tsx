@@ -18,18 +18,14 @@ function App() {
       <main>
         <Container>
           <Routes>
-            <Route path="/trending/page/:page" element={<Trending />} />
-            <Route
-              path="/trending"
-              element={<Navigate to="/trending/page/1" />}
-            />
+            <Route path="/home" element={<Trending />} />
             <Route path="/movie/page/:page" element={<Movies />} />
             <Route path="/movie" element={<Navigate to="/movie/page/1" />} />
             <Route path="/tv/page/:page" element={<Series />} />
             <Route path="/tv" element={<Navigate to="/tv/page/1" />} />
             <Route path="/movie/:id" element={<ContentDetail />} />
             <Route path="/tv/:id" element={<ContentDetail />} />
-            <Route path="*" element={<Navigate to="/trending/page/1" />} />
+            <Route path="*" element={<Navigate to="/home" />} />
           </Routes>
         </Container>
       </main>
