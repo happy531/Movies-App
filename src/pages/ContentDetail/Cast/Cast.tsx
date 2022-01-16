@@ -38,7 +38,9 @@ const Cast: React.FC<Props> = ({ detail_path }) => {
   return (
     <>
       <h1 style={{ fontSize: "18px", marginLeft: "7px" }}>Cast</h1>
-      <Slider {...slider_settings}>{items}</Slider>
+      <Slider {...slider_settings} infinite={false}>
+        {items}
+      </Slider>
     </>
   );
 };
