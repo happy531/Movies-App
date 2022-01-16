@@ -4,6 +4,7 @@ import { minSpinnerLoading } from "../../utils/utils";
 import { Container } from "@mui/material";
 import Details from "./Details/Details";
 import Cast from "./Cast/Cast";
+import Similar from "./Similar/Similar";
 import LoadingSpinner from "../../components/UI/LoadingSpinner";
 
 import { useLocation } from "react-router";
@@ -16,6 +17,7 @@ interface Props {}
 const ContentDetail: React.FC<Props> = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState<boolean>(false);
+
   const { status } = useSelector((state: RootState) => state.details);
 
   const detailsPath = useLocation().pathname;
@@ -45,6 +47,7 @@ const ContentDetail: React.FC<Props> = () => {
         <Container>
           <Details />
           <Cast detail_path={detailsPath} />
+          <Similar detail_path={detailsPath} />
         </Container>
       )}
     </>

@@ -10,8 +10,6 @@ import { img_300, noPicture } from "../../../config/pictures_config";
 
 import { RootState } from "../../../redux/redux-store";
 
-import classes from "./Cast.module.scss";
-
 interface Props {
   detail_path: string;
 }
@@ -39,7 +37,7 @@ const Cast: React.FC<Props> = ({ detail_path }) => {
 
   return (
     <>
-      <h1 className={classes.title}>Cast</h1>
+      <h1 style={{ fontSize: "18px", marginLeft: "7px" }}>Cast</h1>
       <Slider {...slider_settings}>{items}</Slider>
     </>
   );

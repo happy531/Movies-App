@@ -14,7 +14,7 @@ const VoteScore: React.FC<{ vote: number }> = ({ vote }) => {
       className={`${classes.vote}`}
       style={{ borderColor: handleColorPick(vote) }}
     >
-      {vote}
+      {Math.round(vote * 10) / 10}
     </div>
   );
 };

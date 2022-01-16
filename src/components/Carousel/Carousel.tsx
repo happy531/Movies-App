@@ -15,19 +15,19 @@ const Carousel: React.FC<Props> = ({ header, items }) => {
       <h1 style={{ fontSize: "18px", marginLeft: "7px" }}>{header}</h1>
       <Slider {...slider_settings}>
         {items &&
-          items.map(
-            (singleContent: any) =>
-              singleContent.id && (
-                <SingleContent
-                  key={singleContent.id}
-                  id={singleContent.id}
-                  title={singleContent.title || singleContent.name}
-                  poster_path={singleContent.poster_path}
-                  vote={singleContent.vote_average}
-                  media_type={singleContent.media_type}
-                />
-              )
-          )}
+          items.map((singleContent: any) => (
+            <SingleContent
+              key={singleContent.id}
+              id={singleContent.id}
+              title={singleContent.title || singleContent.name}
+              poster_path={singleContent.poster_path}
+              vote={singleContent.vote_average}
+              media_type={
+                singleContent.media_type ||
+                (singleContent.first_air_date ? "tv" : "movie")
+              }
+            />
+          ))}
       </Slider>
     </>
   );

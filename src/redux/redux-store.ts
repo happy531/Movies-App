@@ -6,6 +6,7 @@ import genresSlice from "./genre-slice";
 import detailsSlice from "./details-slice";
 import castSlice from "./cast-slice";
 import searchSlice from "./search-slice";
+import similarSlice from "./similar-slice";
 
 const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ const store = configureStore({
     details: detailsSlice,
     cast: castSlice,
     search: searchSlice,
+    similar: similarSlice,
   },
 });
 
