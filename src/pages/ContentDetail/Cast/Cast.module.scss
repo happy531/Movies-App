@@ -1,0 +1,10 @@
+@import "../../../scss/breakpoint";
+
+.title {
+  font-size: 1.5rem;
+  margin: 20px 10px 0 10px;
+  @include mobile {
+    font-size: 3rem;
+    margin-left: 20px;
+  }
+}

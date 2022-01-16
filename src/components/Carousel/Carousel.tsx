@@ -1,8 +1,8 @@
 import React from "react";
 import Slider from "react-slick";
-import { slider_settings } from "../config/slider-config";
-import SingleContent from "./SingleContent/SingleContent";
-import SingleContentModel from "../models/single-content-model";
+import { slider_settings } from "../../config/slider-config";
+import SingleContent from "../SingleContent/SingleContent";
+import SingleContentModel from "../../models/single-content-model";
 
 interface Props {
   header: string;

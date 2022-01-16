@@ -1,0 +1,114 @@
+@use "../../../scss/variables" as *;
+@use "../../../scss/mixin" as *;
+@use "../../../scss/breakpoint" as *;
+
+.banner {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  opacity: 0.35;
+  z-index: 0;
+}
+
+.movie-content {
+  @include flex(flex-start, flex-start);
+  margin-bottom: 3rem;
+  max-width: 1260px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  padding: 0 1rem;
+
+  &__poster {
+    flex: 1;
+
+    @include mobile {
+      display: none;
+    }
+
+    &__img {
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      border-radius: $border-radius;
+      padding-top: 150%;
+    }
+  }
+
+  &__info {
+    width: 70%;
+    padding-left: 2rem;
+    position: relative;
+
+    @include mobile {
+      width: 100%;
+      padding-left: 0;
+    }
+
+    *:not(:last-child) {
+      margin-bottom: 2rem;
+    }
+
+    .title {
+      font-size: 3rem;
+      line-height: 100%;
+    }
+
+    .genres {
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      *:not(:first-child) {
+        margin-left: 0.5rem;
+      }
+
+      &__item {
+        padding: 0.5rem 1.5rem;
+        border: 2px solid $white;
+        border-radius: $border-radius;
+        font-size: 0.8rem;
+        font-weight: 600;
+        background-color: $body-bg;
+        @include mobile {
+          font-size: 1.4rem;
+          padding: 0.5rem 1rem;
+        }
+      }
+
+      .runtime {
+        padding: 0.5rem 1.5rem;
+        border: 2px solid $white;
+        color: $body-bg;
+        border-radius: $border-radius;
+        font-size: 0.8rem;
+        font-weight: 600;
+        background-color: $white;
+        @include mobile {
+          font-size: 1.4rem;
+          padding: 0.5rem 1rem;
+        }
+      }
+    }
+
+    .tagline {
+      display: block;
+      color: grey;
+      margin-bottom: 1rem;
+      @include mobile {
+        font-size: 1.6rem;
+      }
+    }
+
+    .overview {
+      display: block;
+      margin-bottom: 1rem;
+      @include mobile {
+        font-size: 1.6rem;
+      }
+    }
+  }
+}

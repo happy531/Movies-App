@@ -18,7 +18,7 @@ export const fetchDetailsAndVideo = createAsyncThunk(
 const detailsSlice = createSlice({
   name: "details",
   initialState: {
-    details: [],
+    details: {},
     genres: "",
     video: "",
     status: "",

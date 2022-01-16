@@ -1,32 +1,22 @@
 import React, { useEffect, useState } from "react";
-import {
-  img_original,
-  unavailableLandscape,
-} from "../../config/pictures_config";
 import { minSpinnerLoading } from "../../utils/utils";
 
 import { Container } from "@mui/material";
-import Details from "../../components/Details/Details";
-import Cast from "../../components/Cast/Cast";
+import Details from "./Details/Details";
+import Cast from "./Cast/Cast";
 import LoadingSpinner from "../../components/UI/LoadingSpinner";
 
 import { useLocation } from "react-router";
-
-import classes from "./ContentDetail.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDetailsAndVideo } from "../../redux/details-slice";
+import { RootState } from "../../redux/redux-store";
 
 interface Props {}
 
 const ContentDetail: React.FC<Props> = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState<boolean>(false);
-  const { details, status } = useSelector(
-    // @ts-ignore
-    (state) => state.details
-  );
-
-  const { backdrop_path: backdrop } = details;
+  const { status } = useSelector((state: RootState) => state.details);
 
   const detailsPath = useLocation().pathname;
 
@@ -49,16 +39,6 @@ const ContentDetail: React.FC<Props> = () => {
 
   return (
     <>
-      {!loading && (
-        <div
-          className={classes.backdrop}
-          style={{
-            backgroundImage: backdrop
-              ? `url(${img_original}/${backdrop})`
-              : unavailableLandscape,
-          }}
-        />
-      )}
       {loading ? (
         <LoadingSpinner />
       ) : (

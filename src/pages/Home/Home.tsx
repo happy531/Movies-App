@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import Carousel from "../../components/Carousel";
+import Carousel from "../../components/Carousel/Carousel";
 import LoadingSpinner from "../../components/UI/LoadingSpinner";
 
 import { fetchHomeContent } from "../../redux/home-slice";
@@ -30,7 +30,7 @@ const Home: React.FC = () => {
   }, [status]);
 
   return (
-    <>
+    <div style={{ minHeight: "20vh" }}>
       {loading ? (
         <LoadingSpinner />
       ) : (
@@ -41,7 +41,7 @@ const Home: React.FC = () => {
           <Carousel header={"Top Rated Tv"} items={topRatedTv} />
         </>
       )}
-    </>
+    </div>
   );
 };
 
