@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCast } from "../../../redux/cast-slice";
 
 import Actor from "./Actor";
+import ActorModel from "../../../models/actor-model";
 import Slider from "react-slick";
 import { slider_settings } from "../../../config/slider-config";
 
@@ -25,8 +26,7 @@ const Cast: React.FC<Props> = ({ detail_path }) => {
 
   const items =
     cast &&
-    //@ts-ignore
-    cast.map(({ id, profile_path, name, character }) => (
+    cast.map(({ id, profile_path, name, character }: ActorModel) => (
       <Actor
         key={id}
         profile_path={profile_path ? `${img_300}/${profile_path}` : noPicture}
