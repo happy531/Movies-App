@@ -2,11 +2,15 @@ import React from "react";
 
 import classes from "./VoteScore.module.scss";
 
-const VoteScore: React.FC<{ vote: number }> = ({ vote }) => {
-  function handleColorPick(vote: number): string {
-    if (vote >= 7) return "#21D07A";
-    else if (vote < 7 && vote >= 4) return "#B7BB2D";
-    else return "#DB2360";
+const VoteScore: React.FC<{ vote?: number }> = ({ vote }) => {
+  function handleColorPick(vote: number | undefined): string {
+    let color = "";
+    if (vote) {
+      if (vote >= 7) color = "#21D07A";
+      else if (vote < 7 && vote >= 4) color = "#B7BB2D";
+      else color = "#DB2360";
+    }
+    return color;
   }
 
   return (
@@ -14,7 +18,7 @@ const VoteScore: React.FC<{ vote: number }> = ({ vote }) => {
       className={`${classes.vote}`}
       style={{ borderColor: handleColorPick(vote) }}
     >
-      {Math.round(vote * 10) / 10}
+      {vote && Math.round(vote * 10) / 10}
     </div>
   );
 };

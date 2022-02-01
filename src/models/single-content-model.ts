@@ -1,8 +1,10 @@
 export default interface SingleContentModel {
-  key: number;
   id: number;
-  title: string;
+  title?: string;
+  name?: string;
   poster_path: string;
-  vote: number;
+  vote_average?: number;
+  vote?: number;
   media_type: string;
+  first_air_date?: string;
 }

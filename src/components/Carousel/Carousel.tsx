@@ -15,7 +15,7 @@ const Carousel: React.FC<Props> = ({ header, items }) => {
       <h1 style={{ fontSize: "18px", marginLeft: "7px" }}>{header}</h1>
       <Slider {...slider_settings}>
         {items &&
-          items.map((singleContent: any) => (
+          items.map((singleContent: SingleContentModel) => (
             <SingleContent
               key={singleContent.id}
               id={singleContent.id}
