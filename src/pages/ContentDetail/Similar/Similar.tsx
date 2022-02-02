@@ -11,8 +11,7 @@ interface Props {
 
 const Similar: React.FC<Props> = ({ detail_path }) => {
   const dispatch = useDispatch();
-  //@ts-ignore
-  const { similar } = useSelector<RootState>((state) => state.similar);
+  const { similar } = useSelector((state: RootState) => state.similar);
 
   useEffect(() => {
     const url = `${detail_path}/similar?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=1`;
