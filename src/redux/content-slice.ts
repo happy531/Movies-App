@@ -3,7 +3,7 @@ import axios from "../axios/axios";
 
 export const fetchContent = createAsyncThunk(
   "content/getContent",
-  async (url: string, getState) => {
+  async (url: string) => {
     const { data } = await axios.get(url);
     return data;
   }
@@ -14,24 +14,21 @@ const contentSlice = createSlice({
   initialState: {
     items: [],
     numOfPages: 1,
-    status: null,
+    status: "",
   },
   reducers: {},
-  extraReducers: {
-    // @ts-ignore
-    [fetchContent.pending]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(fetchContent.pending, (state) => {
       state.status = "loading";
-    },
-    // @ts-ignore
-    [fetchContent.fulfilled]: (state, action) => {
+    });
+    builder.addCase(fetchContent.fulfilled, (state, action) => {
       state.items = action.payload.results;
       state.numOfPages = action.payload.total_pages;
       state.status = "finished";
-    },
-    // @ts-ignore
-    [fetchContent.rejected]: (state, action) => {
+    });
+    builder.addCase(fetchContent.rejected, (state) => {
       state.status = "failed";
-    },
+    });
   },
 });
 

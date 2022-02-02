@@ -3,7 +3,7 @@ import axios from "../axios/axios";
 
 export const fetchCast = createAsyncThunk(
   "cast/getCast",
-  async (url: string, getState) => {
+  async (url: string) => {
     const { data } = await axios.get(url);
     return data;
   }
@@ -16,20 +16,17 @@ const castSlice = createSlice({
     status: "",
   },
   reducers: {},
-  extraReducers: {
-    // @ts-ignore
-    [fetchCast.pending]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(fetchCast.pending, (state) => {
       state.status = "loading";
-    },
-    // @ts-ignore
-    [fetchCast.fulfilled]: (state, action) => {
+    });
+    builder.addCase(fetchCast.fulfilled, (state, action) => {
       state.cast = action.payload.cast;
       state.status = "finished";
-    },
-    // @ts-ignore
-    [fetchCast.rejected]: (state, action) => {
+    });
+    builder.addCase(fetchCast.rejected, (state) => {
       state.status = "failed";
-    },
+    });
   },
 });
 

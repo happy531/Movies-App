@@ -32,26 +32,23 @@ const homeSlice = createSlice({
     trendingTv: [],
     topRatedMovies: [],
     topRatedTv: [],
-    status: null,
+    status: "",
   },
   reducers: {},
-  extraReducers: {
-    // @ts-ignore
-    [fetchHomeContent.pending]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(fetchHomeContent.pending, (state) => {
       state.status = "loading";
-    },
-    // @ts-ignore
-    [fetchHomeContent.fulfilled]: (state, action) => {
+    });
+    builder.addCase(fetchHomeContent.fulfilled, (state, action) => {
       state.trendingMovies = action.payload.trendingMoviesData.results;
       state.trendingTv = action.payload.trendingTvData.results;
       state.topRatedMovies = action.payload.topRatedMoviesData.results;
       state.topRatedTv = action.payload.topRatedTvData.results;
       state.status = "finished";
-    },
-    // @ts-ignore
-    [fetchHomeContent.rejected]: (state, action) => {
+    });
+    builder.addCase(fetchHomeContent.rejected, (state) => {
       state.status = "failed";
-    },
+    });
   },
 });
 

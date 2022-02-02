@@ -13,7 +13,6 @@ export const fetchDetailsAndVideo = createAsyncThunk(
   }
 );
 
-// @ts-ignore
 const detailsSlice = createSlice({
   name: "details",
   initialState: {
@@ -22,23 +21,19 @@ const detailsSlice = createSlice({
     status: "",
   },
   reducers: {},
-  extraReducers: {
-    // @ts-ignore
-    [fetchDetailsAndVideo.pending]: (state) => {
+  extraReducers: (builder) => {
+    builder.addCase(fetchDetailsAndVideo.pending, (state) => {
       state.details = {};
       state.status = "loading";
-    },
-    // @ts-ignore
-    [fetchDetailsAndVideo.fulfilled]: (state, action) => {
+    });
+    builder.addCase(fetchDetailsAndVideo.fulfilled, (state, action) => {
       state.details = action.payload.detailsData;
       state.video = action.payload.videoData.results[0]?.key;
-
       state.status = "finished";
-    },
-    // @ts-ignore
-    [fetchDetailsAndVideo.rejected]: (state) => {
+    });
+    builder.addCase(fetchDetailsAndVideo.rejected, (state) => {
       state.status = "failed";
-    },
+    });
   },
 });
 

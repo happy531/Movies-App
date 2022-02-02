@@ -9,30 +9,25 @@ export const fetchSimilar = createAsyncThunk(
   }
 );
 
-// @ts-ignore
 const similarSlice = createSlice({
   name: "similar",
   initialState: {
     similar: [],
-    status: null,
+    status: "",
   },
   reducers: {},
-  extraReducers: {
-    // @ts-ignore
-    [fetchSimilar.pending]: (state) => {
+  extraReducers: (builder) => {
+    builder.addCase(fetchSimilar.pending, (state) => {
       state.similar = [];
       state.status = "loading";
-    },
-    // @ts-ignore
-    [fetchSimilar.fulfilled]: (state, action) => {
+    });
+    builder.addCase(fetchSimilar.fulfilled, (state, action) => {
       state.similar = action.payload;
-
       state.status = "finished";
-    },
-    // @ts-ignore
-    [fetchSimilar.rejected]: (state) => {
+    });
+    builder.addCase(fetchSimilar.rejected, (state) => {
       state.status = "failed";
-    },
+    });
   },
 });
 

@@ -5,7 +5,7 @@ import { compare } from "../utils/utils";
 
 export const fetchGenres = createAsyncThunk(
   "genres/getGenres",
-  async (url: string, getState) => {
+  async (url: string) => {
     const { data } = await axios.get(url);
     return data;
   }
@@ -16,7 +16,7 @@ const genresSlice = createSlice({
   initialState: {
     genres: [],
     selectedGenres: [],
-    status: null,
+    status: "",
   },
   reducers: {
     addGenre(state, action) {
@@ -34,21 +34,18 @@ const genresSlice = createSlice({
       );
     },
   },
-  extraReducers: {
-    // @ts-ignore
-    [fetchGenres.pending]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(fetchGenres.pending, (state) => {
       state.status = "loading";
-    },
-    // @ts-ignore
-    [fetchGenres.fulfilled]: (state, action) => {
+    });
+    builder.addCase(fetchGenres.fulfilled, (state, action) => {
       state.genres = action.payload.genres;
       state.selectedGenres = [];
       state.status = "finished";
-    },
-    // @ts-ignore
-    [fetchGenres.rejected]: (state, action) => {
+    });
+    builder.addCase(fetchGenres.rejected, (state) => {
       state.status = "failed";
-    },
+    });
   },
 });
 
