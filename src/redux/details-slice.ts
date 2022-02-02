@@ -18,7 +18,6 @@ const detailsSlice = createSlice({
   name: "details",
   initialState: {
     details: {},
-    genres: [],
     video: "",
     status: "",
   },
@@ -26,13 +25,12 @@ const detailsSlice = createSlice({
   extraReducers: {
     // @ts-ignore
     [fetchDetailsAndVideo.pending]: (state) => {
-      state.details = [];
+      state.details = {};
       state.status = "loading";
     },
     // @ts-ignore
     [fetchDetailsAndVideo.fulfilled]: (state, action) => {
       state.details = action.payload.detailsData;
-      state.genres = action.payload.detailsData.genres;
       state.video = action.payload.videoData.results[0]?.key;
 
       state.status = "finished";

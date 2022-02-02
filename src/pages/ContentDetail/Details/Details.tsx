@@ -9,15 +9,17 @@ import {
   unavailableLandscape,
 } from "../../../config/pictures_config";
 
+import { RootState } from "../../../redux/redux-store";
+import DetailsModel from "../../../models/details-model";
 import Genre from "../../../models/genre-model";
 
 import classes from "./Details.module.scss";
 
 const Details: React.FC = () => {
-  const { details, video } = useSelector(
-    // @ts-ignore
-    (state) => state.details
+  const details: DetailsModel = useSelector(
+    (state: RootState) => state.details.details
   );
+  const video = useSelector((state: RootState) => state.details.video);
 
   return (
     <>

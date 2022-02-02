@@ -24,22 +24,21 @@ const Cast: React.FC<Props> = ({ detail_path }) => {
     dispatch(fetchCast(url));
   }, [detail_path, dispatch]);
 
-  const items =
-    cast &&
-    cast.map(({ id, profile_path, name, character }: ActorModel) => (
-      <Actor
-        key={id}
-        profile_path={profile_path ? `${img_300}/${profile_path}` : noPicture}
-        name={name}
-        character={character}
-      />
-    ));
-
   return (
     <>
       <h1 style={{ fontSize: "18px", marginLeft: "7px" }}>Cast</h1>
       <Slider {...slider_settings} infinite={false}>
-        {items}
+        {cast &&
+          cast.map(({ id, profile_path, name, character }: ActorModel) => (
+            <Actor
+              key={id}
+              profile_path={
+                profile_path ? `${img_300}/${profile_path}` : noPicture
+              }
+              name={name}
+              character={character}
+            />
+          ))}
       </Slider>
     </>
   );

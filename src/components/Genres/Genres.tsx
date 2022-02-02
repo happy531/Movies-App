@@ -9,6 +9,7 @@ import LoadingSpinner from "../UI/LoadingSpinner";
 import { Chip } from "@mui/material";
 
 import Genre from "../../models/genre-model";
+import { RootState } from "../../redux/redux-store";
 
 import classes from "./Genres.module.scss";
 
@@ -22,9 +23,8 @@ const Genres: React.FC<Props> = ({ type, setPage }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  // @ts-ignore
   const { genres, selectedGenres, status } = useSelector(
-    (state: any) => state.genres
+    (state: RootState) => state.genres
   );
 
   const handleAddGenre = (genre: Genre) => {
