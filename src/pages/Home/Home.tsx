@@ -25,7 +25,7 @@ const Home: React.FC = () => {
     } else {
       setTimeout(() => {
         setLoading(false);
-      }, minSpinnerLoading);
+      }, minSpinnerLoading + 220);
     }
   }, [status]);
 
