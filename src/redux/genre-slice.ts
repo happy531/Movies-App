@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "../axios/axios";
 import Genre from "../models/genre-model";
 import { compare } from "../utils/utils";
@@ -11,6 +11,17 @@ export const fetchGenres = createAsyncThunk(
   }
 );
 
+// const addGenre: CaseReducer<State, PayloadAction<number>> = (state, action) => {
+//   state.selectedGenres = [...state.selectedGenres, action.payload];
+//   state.genres = state.genres.filter((g: Genre) => g.id !== action.payload.id);
+// };
+
+interface InitialStateInterface {
+  genres: Array<Genre>;
+  selectedGenres: Array<Genre>;
+  status: string;
+}
+
 const genresSlice = createSlice({
   name: "genres",
   initialState: {
@@ -19,21 +30,19 @@ const genresSlice = createSlice({
     status: "",
   },
   reducers: {
-    addGenre(state, action) {
-      //@ts-ignore
+    addGenre(state: InitialStateInterface, action: PayloadAction<Genre>) {
       state.selectedGenres = [...state.selectedGenres, action.payload];
       state.genres = state.genres.filter(
         (g: Genre) => g.id !== action.payload.id
       );
     },
-    removeGenre(state, action) {
-      // @ts-ignore
+    removeGenre(state: InitialStateInterface, action: PayloadAction<Genre>) {
       state.genres = [...state.genres, action.payload].sort(compare);
       state.selectedGenres = state.selectedGenres.filter(
         (g: Genre) => g.id !== action.payload.id
       );
     },
-    clearSelectedGenres(state) {
+    clearSelectedGenres(state: InitialStateInterface) {
       state.selectedGenres = [];
     },
   },
