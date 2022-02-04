@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+import { useDispatch } from "react-redux";
+import { genreActions } from "../../redux/genre-slice";
+
 import classes from "./Header.module.scss";
 
 const headerNav = [
@@ -35,6 +38,11 @@ const Header = () => {
     };
   }, []);
 
+  const dispatch = useDispatch();
+  const handleClearSelectedGenres = () => {
+    dispatch(genreActions.clearSelectedGenres());
+  };
+
   return (
     <div className={`${classes.header} ${shrink ? classes.shrink : ""}`}>
       <div className={`${classes.header__wrap}`}>
@@ -46,7 +54,9 @@ const Header = () => {
         <ul className={classes.header__nav}>
           {headerNav.map((e: { display: string; path: string }, i: number) => (
             <li key={i}>
-              <Link to={e.path}>{e.display}</Link>
+              <Link to={e.path} onClick={handleClearSelectedGenres}>
+                {e.display}
+              </Link>
             </li>
           ))}
         </ul>

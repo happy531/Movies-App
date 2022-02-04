@@ -33,6 +33,9 @@ const genresSlice = createSlice({
         (g: Genre) => g.id !== action.payload.id
       );
     },
+    clearSelectedGenres(state) {
+      state.selectedGenres = [];
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchGenres.pending, (state) => {
