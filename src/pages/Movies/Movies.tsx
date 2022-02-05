@@ -7,18 +7,20 @@ import SingleContent from "../../components/SingleContent/SingleContent";
 import Pagination from "../../components/Pagination/Pagination";
 import Genres from "../../components/Genres/Genres";
 import LoadingSpinner from "../../components/UI/LoadingSpinner";
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 import { fetchContent } from "../../redux/content-slice";
 import { minSpinnerLoading } from "../../utils/utils";
 import { RootState } from "../../redux/redux-store";
 
 import classes from "../Page.module.scss";
-import SearchBar from "../../components/SearchBar/SearchBar";
+import { genreActions } from "../../redux/genre-slice";
 
 const Movies: React.FC = () => {
   const dispatch = useDispatch();
   const [page, setPage] = useState<number>(Number(useParams().page));
   const [loading, setLoading] = useState<boolean>(true);
+  const [keyword, setKeyword] = useState<string>("");
 
   const { items, numOfPages, status } = useSelector(
     (state: RootState) => state.content
@@ -29,13 +31,14 @@ const Movies: React.FC = () => {
 
   useEffect(() => {
     const url = `/movie/top_rated?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}&with_genres=${selectedGenresIDs}`;
-    // if (searchRef.current) {
-    //   const urlWithKeyword = `search/keyword?api_key=80dc1b62b53614a86a341ab0b6fca265&query=${searchRef.current.value}&page=1`;
-    //   console.log(searchRef.current.value);
-    // }
-
-    dispatch(fetchContent(url));
-  }, [page, selectedGenresIDs, dispatch]);
+    if (keyword) {
+      dispatch(genreActions.clearSelectedGenres());
+      const urlWithKeyword = `/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&query=${keyword}&page=1&include_adult=true`;
+      dispatch(fetchContent(urlWithKeyword));
+    } else {
+      dispatch(fetchContent(url));
+    }
+  }, [page, selectedGenresIDs, dispatch, keyword]);
 
   useEffect(() => {
     if (status === "loading") {
@@ -50,7 +53,7 @@ const Movies: React.FC = () => {
   return (
     <>
       <Genres type="movie" setPage={setPage} />
-      <SearchBar />
+      <SearchBar keyword={keyword} onSetKeyword={setKeyword} />
       <ul className={classes["list-container"]}>
         {loading && <LoadingSpinner />}
         {items &&
@@ -71,7 +74,7 @@ const Movies: React.FC = () => {
           </p>
         )}
       </ul>
-      {items && !loading && (
+      {!loading && numOfPages > 1 && (
         <Pagination
           onSetPage={setPage}
           numOfPages={numOfPages}

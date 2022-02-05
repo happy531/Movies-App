@@ -1,36 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import Input from "../../components/UI/Input";
 
 interface Props {
-  keyword?: string;
+  keyword: string;
+  onSetKeyword: (value: string) => void;
 }
 
-const SearchBar: React.FC<Props> = (props) => {
-  const [keyword, setKeyword] = useState(props.keyword ? props.keyword : "");
-  const enterKey = 13;
-
-  useEffect(() => {
-    const enterEvent = (e: any) => {
-      e.preventDefault();
-      if (e.keyCode === enterKey) {
-        console.log(keyword);
-      }
-    };
-    document.addEventListener("keyup", enterEvent);
-    return () => {
-      document.removeEventListener("keyup", enterEvent);
-    };
-  }, [keyword]);
-
+const SearchBar: React.FC<Props> = ({ keyword, onSetKeyword }) => {
   return (
     <div className="movie-search">
       <Input
         type="text"
-        placeholder="Enter keyword"
+        placeholder="Search by keyword"
         value={keyword}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setKeyword(e.target.value)
+          onSetKeyword(e.target.value)
         }
       />
     </div>
