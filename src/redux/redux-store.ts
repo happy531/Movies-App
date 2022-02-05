@@ -5,7 +5,6 @@ import contentSlice from "./content-slice";
 import genresSlice from "./genre-slice";
 import detailsSlice from "./details-slice";
 import castSlice from "./cast-slice";
-import searchSlice from "./search-slice";
 import similarSlice from "./similar-slice";
 
 const store = configureStore({
@@ -15,7 +14,6 @@ const store = configureStore({
     genres: genresSlice,
     details: detailsSlice,
     cast: castSlice,
-    search: searchSlice,
     similar: similarSlice,
   },
 });
