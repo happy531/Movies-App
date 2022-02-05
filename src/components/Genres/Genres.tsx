@@ -76,6 +76,7 @@ const Genres: React.FC<Props> = ({ type, setPage }) => {
         !loading &&
         genres.map((genre: Genre) => (
           <Chip
+            className={classes.genre}
             style={{
               color: "black",
               backgroundColor: "whitesmoke",

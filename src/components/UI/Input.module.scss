@@ -1,4 +1,5 @@
 @use "../../scss/variables" as *;
+@use "../../scss/_breakpoint.scss" as *;
 
 input {
   border: 2px solid $white;
@@ -9,4 +10,10 @@ input {
   border-radius: $border-radius;
   color: $txt-color;
   font-family: $font-family;
+
+  @include mobile {
+    width: 100%;
+    font-size: 2rem;
+    font-weight: 700;
+  }
 }
