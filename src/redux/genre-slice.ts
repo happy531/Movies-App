@@ -11,11 +11,6 @@ export const fetchGenres = createAsyncThunk(
   }
 );
 
-// const addGenre: CaseReducer<State, PayloadAction<number>> = (state, action) => {
-//   state.selectedGenres = [...state.selectedGenres, action.payload];
-//   state.genres = state.genres.filter((g: Genre) => g.id !== action.payload.id);
-// };
-
 interface InitialStateInterface {
   genres: Array<Genre>;
   selectedGenres: Array<Genre>;

@@ -13,6 +13,7 @@ import { minSpinnerLoading } from "../../utils/utils";
 import { RootState } from "../../redux/redux-store";
 
 import classes from "../Page.module.scss";
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 const Movies: React.FC = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,10 @@ const Movies: React.FC = () => {
 
   useEffect(() => {
     const url = `/movie/top_rated?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}&with_genres=${selectedGenresIDs}`;
+    // if (searchRef.current) {
+    //   const urlWithKeyword = `search/keyword?api_key=80dc1b62b53614a86a341ab0b6fca265&query=${searchRef.current.value}&page=1`;
+    //   console.log(searchRef.current.value);
+    // }
 
     dispatch(fetchContent(url));
   }, [page, selectedGenresIDs, dispatch]);
@@ -45,6 +50,7 @@ const Movies: React.FC = () => {
   return (
     <>
       <Genres type="movie" setPage={setPage} />
+      <SearchBar />
       <ul className={classes["list-container"]}>
         {loading && <LoadingSpinner />}
         {items &&
