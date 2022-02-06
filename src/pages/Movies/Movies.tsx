@@ -39,7 +39,6 @@ const Movies: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       if (keyword) {
-        console.log("trigger");
         dispatch(genreActions.clearSelectedGenres());
         const urlWithKeyword = `/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&query=${keyword}&page=1&include_adult=true`;
         dispatch(fetchContent(urlWithKeyword));
@@ -71,7 +70,7 @@ const Movies: React.FC = () => {
               key={singleContent.id}
               id={singleContent.id}
               title={singleContent.title || singleContent.name}
-              poster_path={singleContent.poster_path}
+              poster_path={singleContent.poster_path ? singleContent.poster_path : null}
               vote={singleContent.vote_average}
               media_type="movie"
             />

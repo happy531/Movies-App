@@ -13,7 +13,9 @@ const SingleContent: React.FC<SingleContentModel> = (props) => {
   return (
     <Link to={`/${props.media_type}/${props.id}`} className={classes.container}>
       <img
-        src={`${img_300}/${props.poster_path}` || unavailable}
+        src={
+          props.poster_path ? `${img_300}/${props.poster_path}` : unavailable
+        }
         alt={props.title}
       />
       <VoteScore vote={props.vote} />
