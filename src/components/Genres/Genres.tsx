@@ -16,9 +16,10 @@ import classes from "./Genres.module.scss";
 interface Props {
   type: string;
   setPage: (page: number) => void;
+  setKeyword: (s: string) => void;
 }
 
-const Genres: React.FC<Props> = ({ type, setPage }) => {
+const Genres: React.FC<Props> = ({ type, setPage, setKeyword }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -28,11 +29,12 @@ const Genres: React.FC<Props> = ({ type, setPage }) => {
   );
 
   const handleAddGenre = (genre: Genre) => {
+    setKeyword("");
     dispatch(genreActions.addGenre(genre));
     navigate(`/${type}/page/1`);
     setPage(1);
   };
-  const handleRemoveGenre = (genre: { id: number; name: string }) => {
+  const handleRemoveGenre = (genre: Genre) => {
     dispatch(genreActions.removeGenre(genre));
     navigate(`/${type}/page/1`);
     setPage(1);
@@ -40,7 +42,6 @@ const Genres: React.FC<Props> = ({ type, setPage }) => {
 
   useEffect(() => {
     const url = `genre/${type}/list?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`;
-
     dispatch(fetchGenres(url));
   }, [type, dispatch]);
 

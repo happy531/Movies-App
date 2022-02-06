@@ -31,14 +31,22 @@ const Movies: React.FC = () => {
 
   useEffect(() => {
     const url = `/movie/top_rated?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}&with_genres=${selectedGenresIDs}`;
-    if (keyword) {
-      dispatch(genreActions.clearSelectedGenres());
-      const urlWithKeyword = `/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&query=${keyword}&page=1&include_adult=true`;
-      dispatch(fetchContent(urlWithKeyword));
-    } else {
+    if (!keyword) {
       dispatch(fetchContent(url));
     }
   }, [page, selectedGenresIDs, dispatch, keyword]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (keyword) {
+        console.log("trigger");
+        dispatch(genreActions.clearSelectedGenres());
+        const urlWithKeyword = `/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&query=${keyword}&page=1&include_adult=true`;
+        dispatch(fetchContent(urlWithKeyword));
+      }
+    }, 350);
+    return () => clearTimeout(timer);
+  }, [dispatch, keyword]);
 
   useEffect(() => {
     if (status === "loading") {
@@ -52,7 +60,7 @@ const Movies: React.FC = () => {
 
   return (
     <>
-      <Genres type="movie" setPage={setPage} />
+      <Genres type="movie" setPage={setPage} setKeyword={setKeyword} />
       <SearchBar keyword={keyword} onSetKeyword={setKeyword} />
       <ul className={classes["list-container"]}>
         {loading && <LoadingSpinner />}
@@ -74,7 +82,7 @@ const Movies: React.FC = () => {
           </p>
         )}
       </ul>
-      {!loading && numOfPages > 1 && (
+      {!loading && numOfPages > 1 && !keyword && (
         <Pagination
           onSetPage={setPage}
           numOfPages={numOfPages}

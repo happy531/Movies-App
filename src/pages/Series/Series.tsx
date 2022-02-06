@@ -6,7 +6,7 @@ import useGenre from "../../hooks/useGenre";
 
 import SingleContent from "../../components/SingleContent/SingleContent";
 import Pagination from "../../components/Pagination/Pagination";
-import Genres from "../../components/Genres/Genres";
+// import Genres from "../../components/Genres/Genres";
 import LoadingSpinner from "../../components/UI/LoadingSpinner";
 
 import { fetchContent } from "../../redux/content-slice";
@@ -46,7 +46,7 @@ const Series: React.FC = () => {
 
   return (
     <>
-      <Genres type="tv" setPage={setPage} />
+      {/*<Genres type="tv" setPage={setPage} />*/}
       <ul className={classes["list-container"]}>
         {loading && <LoadingSpinner />}
         {!loading &&

@@ -32,6 +32,6 @@ const contentSlice = createSlice({
   },
 });
 
-// export const contentActions = contentSlice.actions;
+export const contentActions = contentSlice.actions;
 
 export default contentSlice.reducer;
