@@ -6,7 +6,7 @@ import useGenre from "../../hooks/useGenre";
 
 import SingleContent from "../../components/SingleContent/SingleContent";
 import Pagination from "../../components/Pagination/Pagination";
-// import Genres from "../../components/Genres/Genres";
+import Genres from "../../components/Genres/Genres";
 import LoadingSpinner from "../../components/UI/LoadingSpinner";
 
 import { fetchContent } from "../../redux/content-slice";
@@ -15,11 +15,14 @@ import { minSpinnerLoading } from "../../utils/utils";
 import { RootState } from "../../redux/redux-store";
 
 import classes from "../Page.module.scss";
+import { genreActions } from "../../redux/genre-slice";
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 const Series: React.FC = () => {
   const dispatch = useDispatch();
   const [page, setPage] = useState<number>(Number(useParams().page));
   const [loading, setLoading] = useState<boolean>(false);
+  const [keyword, setKeyword] = useState<string>("");
 
   const { items, numOfPages, status } = useSelector(
     (state: RootState) => state.content
@@ -30,9 +33,23 @@ const Series: React.FC = () => {
 
   useEffect(() => {
     const url = `/tv/top_rated?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}&with_genres=${selectedGenresIDs}`;
-
+    if (!keyword) {
+      dispatch(fetchContent(url));
+    }
     dispatch(fetchContent(url));
-  }, [page, selectedGenresIDs, dispatch]);
+  }, [page, selectedGenresIDs, dispatch, keyword]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (keyword) {
+        console.log("trigger");
+        dispatch(genreActions.clearSelectedGenres());
+        const urlWithKeyword = `/search/tv?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&query=${keyword}&page=1&include_adult=true`;
+        dispatch(fetchContent(urlWithKeyword));
+      }
+    }, 350);
+    return () => clearTimeout(timer);
+  }, [dispatch, keyword]);
 
   useEffect(() => {
     if (status === "loading") {
@@ -46,7 +63,8 @@ const Series: React.FC = () => {
 
   return (
     <>
-      {/*<Genres type="tv" setPage={setPage} />*/}
+      <Genres type="tv" setPage={setPage} setKeyword={setKeyword} />
+      <SearchBar keyword={keyword} onSetKeyword={setKeyword} />
       <ul className={classes["list-container"]}>
         {loading && <LoadingSpinner />}
         {!loading &&
@@ -67,7 +85,7 @@ const Series: React.FC = () => {
           </p>
         )}
       </ul>
-      {items.length > 0 && !loading && (
+      {!loading && numOfPages > 1 && !keyword && (
         <Pagination
           onSetPage={setPage}
           numOfPages={numOfPages}
