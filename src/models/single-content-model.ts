@@ -2,7 +2,7 @@ export default interface SingleContentModel {
   id: number;
   title?: string;
   name?: string;
-  poster_path: string;
+  poster_path: string | null;
   vote_average?: number;
   vote?: number;
   media_type: string;

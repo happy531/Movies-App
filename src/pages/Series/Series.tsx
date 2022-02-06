@@ -5,18 +5,19 @@ import { useParams } from "react-router";
 import useGenre from "../../hooks/useGenre";
 
 import SingleContent from "../../components/SingleContent/SingleContent";
+import SingleContentModel from "../../models/single-content-model";
 import Pagination from "../../components/Pagination/Pagination";
 import Genres from "../../components/Genres/Genres";
 import LoadingSpinner from "../../components/UI/LoadingSpinner";
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 import { fetchContent } from "../../redux/content-slice";
+import { genreActions } from "../../redux/genre-slice";
 import { minSpinnerLoading } from "../../utils/utils";
 
 import { RootState } from "../../redux/redux-store";
 
 import classes from "../Page.module.scss";
-import { genreActions } from "../../redux/genre-slice";
-import SearchBar from "../../components/SearchBar/SearchBar";
 
 const Series: React.FC = () => {
   const dispatch = useDispatch();
@@ -69,7 +70,7 @@ const Series: React.FC = () => {
         {loading && <LoadingSpinner />}
         {!loading &&
           items &&
-          items.map((singleContent: any) => (
+          items.map((singleContent: SingleContentModel) => (
             <SingleContent
               key={singleContent.id}
               id={singleContent.id}
@@ -79,9 +80,9 @@ const Series: React.FC = () => {
               media_type="tv"
             />
           ))}
-        {!items && !loading && (
+        {items.length === 0 && !loading && (
           <p className={classes["error-message"]}>
-            No videos with such criteria ;(
+            No videos with such criteria :(
           </p>
         )}
       </ul>

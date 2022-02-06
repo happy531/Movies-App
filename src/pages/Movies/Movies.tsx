@@ -10,11 +10,13 @@ import LoadingSpinner from "../../components/UI/LoadingSpinner";
 import SearchBar from "../../components/SearchBar/SearchBar";
 
 import { fetchContent } from "../../redux/content-slice";
+import { genreActions } from "../../redux/genre-slice";
 import { minSpinnerLoading } from "../../utils/utils";
+
+import SingleContentModel from "../../models/single-content-model";
 import { RootState } from "../../redux/redux-store";
 
 import classes from "../Page.module.scss";
-import { genreActions } from "../../redux/genre-slice";
 
 const Movies: React.FC = () => {
   const dispatch = useDispatch();
@@ -65,19 +67,21 @@ const Movies: React.FC = () => {
         {loading && <LoadingSpinner />}
         {items &&
           !loading &&
-          items.map((singleContent: any) => (
+          items.map((singleContent: SingleContentModel) => (
             <SingleContent
               key={singleContent.id}
               id={singleContent.id}
               title={singleContent.title || singleContent.name}
-              poster_path={singleContent.poster_path ? singleContent.poster_path : null}
+              poster_path={
+                singleContent.poster_path ? singleContent.poster_path : null
+              }
               vote={singleContent.vote_average}
               media_type="movie"
             />
           ))}
-        {!items && !loading && (
+        {items.length === 0 && !loading && (
           <p className={classes["error-message"]}>
-            No videos with such criteria ;(
+            No videos with such criteria :(
           </p>
         )}
       </ul>

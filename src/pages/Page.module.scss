@@ -10,10 +10,16 @@
   position: relative;
   min-height: 20vh;
   margin-top: 10px;
+
+  .error-message {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: $white;
+    font-weight: bold;
+    margin-top: 20vh;
+
+  }
 }
 
-.error-message {
-  color: $white;
-  font-weight: bold;
-  margin: 20vh auto;
-}
+
