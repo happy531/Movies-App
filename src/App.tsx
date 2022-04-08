@@ -8,6 +8,7 @@ import Trending from "./pages/Home/Home";
 import Movies from "./pages/Movies/Movies";
 import Series from "./pages/Series/Series";
 import ContentDetail from "./pages/ContentDetail/ContentDetail";
+import Footer from "./components/Footer/Footer";
 
 import "./App.scss";
 
@@ -29,6 +30,7 @@ function App() {
           </Routes>
         </Container>
       </main>
+      <Footer />
     </BrowserRouter>
   );
 }
